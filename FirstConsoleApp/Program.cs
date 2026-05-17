@@ -201,10 +201,12 @@
                         Console.WriteLine("invalid option please try again");
                         break;
                 }
-                        Console.WriteLine("press any key to continue...");
-                        Console.ReadKey();
-                        Console.Clear(); // clear the console for better user experience
-
+                if (exit != true)
+                {
+                    Console.WriteLine("press any key to continue...");
+                    Console.ReadKey();
+                    Console.Clear(); // clear the console for better user experience
+                }
                
 
                 
