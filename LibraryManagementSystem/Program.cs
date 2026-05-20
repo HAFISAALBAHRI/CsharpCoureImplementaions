@@ -164,6 +164,14 @@ namespace LibraryManagementSystem
             double discounted = amount * rate;
             return Math.Round(discounted, 2);
         }
+
+        public static bool IsEligibleToBorrow(string expiryDateString)
+        {
+            DateTime expiryDate = DateTime.Parse(expiryDateString);
+            return expiryDate >= DateTime.Today;
+        }
+
+
         public static void AddBookInformation(string defaultGenre = "General")
         {
             Console.WriteLine("Enter book title:");
@@ -258,6 +266,24 @@ namespace LibraryManagementSystem
                         }
 
                         break;
+                    case "7":
+                        if (MembershipExpiry == "")
+                        {
+                            Console.WriteLine("No expiry date set for membership.");
+                        }
+                        else
+                        {
+                            bool eligible = IsEligibleToBorrow(MembershipExpiry);
+
+                            Console.WriteLine("Registration Date: "+ RegistrationDate);
+
+                            if (eligible)
+                                Console.WriteLine("Member is eligible to borrow.");
+                            else
+                                Console.WriteLine("Membership expired. Not eligible to borrow.");
+                        }
+                        break;
+
                     case "8":
                         AddBookInformation();
                         break;
