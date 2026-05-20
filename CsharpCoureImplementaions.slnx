@@ -1,4 +1,5 @@
 <Solution>
   <Project Path="FirstConsoleApp/FirstConsoleApp.csproj" />
   <Project Path="HotelManagementSystem/HotelManagementSystem.csproj" Id="35c3fc0f-1909-4fa0-8b9b-f4bc081ae38f" />
+  <Project Path="LibraryManagementSystem/LibraryManagementSystem.csproj" Id="20678a4a-36ff-4969-be31-71c67fa7c00d" />
 </Solution>
