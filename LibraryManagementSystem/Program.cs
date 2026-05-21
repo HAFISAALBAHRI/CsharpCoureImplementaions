@@ -171,12 +171,6 @@ namespace LibraryManagementSystem
             return expiryDate >= DateTime.Today;
         }
 
-        public static string GenerateMemberID()
-        {
-            MemberID = MemberName.ToUpper().Substring(0, 2) + "-" + MemberID; // so the ID will be xx-ID number 
-            return MemberID;
-        }
-
         public static void AddBookInformation(string defaultGenre = "General")
         {
             Console.WriteLine("Enter book title:");
@@ -208,6 +202,29 @@ namespace LibraryManagementSystem
             Console.WriteLine("Copies: " + BookAvailableCopies);
 
         }
+
+        public static string GenerateMemberID()
+        {
+            MemberID = MemberName.ToUpper().Substring(0, 2) + "-" + MemberID; // so the ID will be xx-ID number 
+            return MemberID;
+        }
+
+        public static void DisplayBookDetails()
+        {
+            if (BookRegistered)
+            {
+                Console.WriteLine("===*** Book Details ****===");
+                Console.WriteLine("Title: " + BookTitle);
+                Console.WriteLine("Author: " + BookAuthor);
+                Console.WriteLine("Genre: " + BookGenre);
+                Console.WriteLine("Available Copies: " + BookAvailableCopies);
+            }
+            else
+            {
+                Console.WriteLine("No book registered yet.");
+            }
+        }
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -302,6 +319,10 @@ namespace LibraryManagementSystem
                             Console.WriteLine("Generated Member ID: " + MemberID);
                         }
                         break;
+                    case "10":
+                        DisplayBookDetails();
+                        break;
+
 
 
 
