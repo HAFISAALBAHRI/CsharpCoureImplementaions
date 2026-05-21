@@ -18,8 +18,8 @@ namespace LibraryManagementSystem
         static DateTime ReturnDate;
         static int BookAvailableCopies = 0;
         static bool BookRegistered = false;
-        static int TotalBooksBorrowedThisSession = 0;
-        static double TotalFinesPaidThisSession = 0.0;
+        public static int TotalBooksBorrowedThisSession = 0;
+        public static double TotalFinesPaidThisSession = 0.0;
 
         // Prints the main menu (Case 0 requirement: void, no parameters)
         public static void ShowMenu()
@@ -257,6 +257,16 @@ namespace LibraryManagementSystem
             }
         }
 
+        // Case 13: Session Summary
+        public static void DisplaySessionSummary()
+        {
+            Console.WriteLine("===*** SESSION SUMMARY ***===");
+            Console.WriteLine("Member Name: " + MemberName);
+            Console.WriteLine("Total Books Borrowed: " + TotalBooksBorrowedThisSession);
+            Console.WriteLine("Total Fines Paid: " + TotalFinesPaidThisSession + " OMR");
+            Console.WriteLine("Current Date & Time: " + DateTime.Now);
+        }
+
 
 
 
@@ -391,8 +401,13 @@ namespace LibraryManagementSystem
                             Console.WriteLine("Invalid email format. Update failed.");
                         }
                         break;
+                    case "13":
+                        DisplaySessionSummary();
+                        break;
 
-                      
+
+
+
 
 
 
