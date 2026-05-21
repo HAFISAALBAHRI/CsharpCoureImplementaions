@@ -157,9 +157,9 @@ namespace LibraryManagementSystem
             double rate;
 
             if (tier == "PREMIUM")
-                rate = 0.80;
+                rate = 0.20;
             else
-                rate = 0.90;
+                rate = 0.10;
 
             double discounted = amount * rate;
             return Math.Round(discounted, 2);
@@ -225,7 +225,24 @@ namespace LibraryManagementSystem
             }
         }
 
-        static void Main(string[] args)
+        public static double CalculateRenewalFee(int days)
+        {
+            double feePerDay = 0.2;
+            return days * feePerDay;
+        }
+
+        public static double CalculateRenewalFee(int days, bool halfFee)
+        {
+            double feePerDay = 0.2;
+            double fee = days * feePerDay;
+            if (halfFee)
+                fee = fee / 2;
+
+            return fee;
+        }
+
+       
+            static void Main(string[] args)
         {
             bool exit = false;
             while (exit == false)
@@ -237,9 +254,9 @@ namespace LibraryManagementSystem
                 switch (option)
                 {
                     case "0":
-                       
-                            AddMemberInformation();
-                       
+
+                        AddMemberInformation();
+
                         break;
                     case "1":
 
@@ -297,7 +314,7 @@ namespace LibraryManagementSystem
                         {
                             bool eligible = IsEligibleToBorrow(MembershipExpiry);
 
-                            Console.WriteLine("Registration Date: "+ RegistrationDate);
+                            Console.WriteLine("Registration Date: " + RegistrationDate);
 
                             if (eligible)
                                 Console.WriteLine("Member is eligible to borrow.");
@@ -322,10 +339,25 @@ namespace LibraryManagementSystem
                     case "10":
                         DisplayBookDetails();
                         break;
+                    case "11":
+                        Console.Write("Enter number of renewal days: ");
+                        int renewalDays = int.Parse(Console.ReadLine());
+                         Console.Write("Are you premium (true/false): ");
+                        bool halfFee = bool.Parse(Console.ReadLine());
+                        double fee;
+                        if (halfFee== true)
+                        {
+                            fee = CalculateRenewalFee(renewalDays, true);
+                            Console.WriteLine("Renewal Fee (Premium, half applied) = "+ fee +" OMR"); 
+
+                        }
+                        else {
+                             fee = CalculateRenewalFee(renewalDays);
+                            Console.WriteLine("Renewal Fee (Standard) =" + fee + "OMR");
+                        }
 
 
-
-
+                        break;
 
 
 
