@@ -257,7 +257,6 @@ namespace LibraryManagementSystem
             }
         }
 
-        // Case 13: Session Summary
         public static void DisplaySessionSummary()
         {
             Console.WriteLine("===*** SESSION SUMMARY ***===");
@@ -267,6 +266,29 @@ namespace LibraryManagementSystem
             Console.WriteLine("Current Date & Time: " + DateTime.Now);
         }
 
+        
+        public static void ShowMemberStatistics()
+        {
+            Console.WriteLine("=== MEMBER STATISTICS  ===");
+            Console.WriteLine("Member Name: " + MemberName);
+            Console.WriteLine("Tier: " + MemberTier);
+            Console.WriteLine("Books Borrowed This Session: " + TotalBooksBorrowedThisSession);
+            Console.WriteLine("Fines Paid This Session: " + TotalFinesPaidThisSession + " OMR");
+        }
+
+        
+        public static void ShowMemberStatistics(bool showDetails)
+        {
+            
+            ShowMemberStatistics();
+
+           
+            if (showDetails)
+            {
+                Console.WriteLine("Member ID: " + MemberID);
+                Console.WriteLine("Membership Expiry: " + MembershipExpiry);
+            }
+        }
 
 
 
@@ -404,13 +426,16 @@ namespace LibraryManagementSystem
                     case "13":
                         DisplaySessionSummary();
                         break;
+                    case "14":
+                        Console.WriteLine("===**** MEMBER STATISTICS ****===");
 
+                        ShowMemberStatistics(); //version 1
 
+                        Console.WriteLine();
 
+                        ShowMemberStatistics(true);//version 2
 
-
-
-
+                        break;
                     case "15":
                         exit = true;
                         break;
