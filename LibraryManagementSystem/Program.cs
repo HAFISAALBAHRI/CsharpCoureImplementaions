@@ -58,7 +58,7 @@ namespace LibraryManagementSystem
                 MembershipExpiry = Console.ReadLine();
                 Console.WriteLine("Enter membership tier (Standard/Premium):");
                 MemberTier = Console.ReadLine();
-                MemberID = MemberName.ToUpper().Substring(0, 2) + "-" + MemberID; // so the ID will be xx-ID number 
+               // MemberID = MemberName.ToUpper().Substring(0, 2) + "-" + MemberID; // so the ID will be xx-ID number 
                 RegistrationDate = DateTime.Now;
                 Console.WriteLine("Registration completed at: " + RegistrationDate.ToString("yyyy-MM-dd"));
                 MemberRegistered = true;
@@ -171,6 +171,11 @@ namespace LibraryManagementSystem
             return expiryDate >= DateTime.Today;
         }
 
+        public static string GenerateMemberID()
+        {
+            MemberID = MemberName.ToUpper().Substring(0, 2) + "-" + MemberID; // so the ID will be xx-ID number 
+            return MemberID;
+        }
 
         public static void AddBookInformation(string defaultGenre = "General")
         {
@@ -283,10 +288,21 @@ namespace LibraryManagementSystem
                                 Console.WriteLine("Membership expired. Not eligible to borrow.");
                         }
                         break;
-
                     case "8":
                         AddBookInformation();
                         break;
+                    case "9":
+                        if (MemberName == "")
+                        {
+                            Console.WriteLine("Please register member first.");
+                        }
+                        else
+                        {
+                            MemberID = GenerateMemberID();
+                            Console.WriteLine("Generated Member ID: " + MemberID);
+                        }
+                        break;
+
 
 
 
