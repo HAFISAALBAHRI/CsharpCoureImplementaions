@@ -241,8 +241,27 @@ namespace LibraryManagementSystem
             return fee;
         }
 
-       
-            static void Main(string[] args)
+        public static bool ValidateEmail(string inputEmail, out string cleanedEmail)
+        {
+            
+            cleanedEmail = inputEmail.Trim();
+
+            
+            if (cleanedEmail.Contains("@") && cleanedEmail.Contains("."))
+            {
+                return true; 
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+
+
+
+
+        static void Main(string[] args)
         {
             bool exit = false;
             while (exit == false)
@@ -358,6 +377,22 @@ namespace LibraryManagementSystem
 
 
                         break;
+                    case " 12" :
+                        Console.Write("Enter new email address: ");
+                        string newEmail = Console.ReadLine();
+
+                        if (ValidateEmail(newEmail, out string cleanedEmail))
+                        {
+                            MemberEmail = cleanedEmail;
+                            Console.WriteLine("Email updated successfully: " + MemberEmail);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Invalid email format. Update failed.");
+                        }
+                        break;
+
+                      
 
 
 
