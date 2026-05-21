@@ -205,7 +205,7 @@ namespace LibraryManagementSystem
 
         public static string GenerateMemberID()
         {
-            MemberID = MemberName.ToUpper().Substring(0, 2) + "-" + MemberID; // so the ID will be xx-ID number 
+            MemberID = MemberName.ToUpper().Substring(0, 2) + "-" + MemberID + "   :  " + DateTime.Now.ToString("yyyy/MM/dd - HH:mm:ss"); // so the ID will be xx-ID number
             return MemberID;
         }
 
