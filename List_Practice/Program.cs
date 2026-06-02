@@ -94,6 +94,21 @@
         Console.WriteLine("Total Participants : " + finishTimes.Count);
     }
 
+       public static void ClassroomGradeReport()
+         {
+        List<int> grades = new List<int> { 85, 72, 90, 66, 100, 78, 55, 88, 95, 60 };
+        grades.Sort(); // {55, 60, 66, 72, 78, 85, 88, 90, 95, 100}
+        grades.Reverse(); // {100, 95, 90, 88, 85, 78, 72, 66, 60, 55}
+        Console.WriteLine("******************************");
+        Console.WriteLine("--- Classroom Grade Report ---");
+        Console.WriteLine("******************************");
+        for (int i = 0; i < grades.Count; i++) 
+        {
+            Console.WriteLine("Rank " + (i + 1) + " : " + grades[i]);
+        }
+    }
+
+
 
     static void Main(string[] args)
         {
@@ -118,9 +133,9 @@
                     case "4":
                         RaceFinishTimes();
                         break;
-                    //case "5":
-                    //    ClassroomGradeReport();
-                    //    break;
+                    case "5":
+                        ClassroomGradeReport();
+                        break;
                     //case "6":
                     //    WarehouseInventoryCheck();
                     //    break;
