@@ -76,9 +76,26 @@
             }
         }
 
+       public static void RaceFinishTimes()
+    {
+        List<int> finishTimes = new List<int> { 320, 275, 290, 310, 305, 280, 330, 300 };
+        Console.WriteLine("*****************************");
+        Console.WriteLine("--- Original Finish Times ---");
+        Console.WriteLine("*****************************");
+        foreach (int time in finishTimes)
+            Console.WriteLine(time + " seconds");
+         finishTimes.Sort();
+
+        Console.WriteLine("********************************************");
+        Console.WriteLine("--- Sorted Finish Times (Fastest First) ---");
+        Console.WriteLine("********************************************");
+        foreach (int time in finishTimes)
+            Console.WriteLine(time + " seconds");
+        Console.WriteLine("Total Participants : " + finishTimes.Count);
+    }
 
 
-        static void Main(string[] args)
+    static void Main(string[] args)
         {
             bool exit = false;
             while (exit == false)
@@ -98,9 +115,9 @@
                     case "3":
                         ProductPriceFinder();
                         break;
-                    //case "4":
-                    //    RaceFinishTimes();
-                    //    break;
+                    case "4":
+                        RaceFinishTimes();
+                        break;
                     //case "5":
                     //    ClassroomGradeReport();
                     //    break;
