@@ -1,4 +1,10 @@
-﻿namespace Arrays_Practice
+﻿using System.Diagnostics;
+using System.Diagnostics.Metrics;
+using System.Globalization;
+using System.Runtime.Intrinsics.X86;
+using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Arrays_Practice
 {
     internal class Program
     {
@@ -114,7 +120,7 @@
             int[] quantities = { 12 , 8 , 15 , 20 , 5, 18 , 10 , 25 };
             int total = 0;
             for (int i = 0; i < quantities.Length; i++)
-                total += quantities[i];
+            total += quantities[i];
             Console.WriteLine("Total Stock: "  +total);
             double average = (double)total / quantities.Length;
             Console.WriteLine(" ");
@@ -240,7 +246,37 @@
             Console.WriteLine("Total Seat Count: "+seats.Length);
         }
 
+        public static void HospitalPatientPriorityQueue()
+        {
+            int[] severity = { 5, 2, 8, 3, 7, 1, 9, 4, 6, 10, 2, 5, 3, 7, 8, 4, 6, 9, 1, 10 };
+            int[] sortedSeverity = new int[severity.Length];
+            for (int i = 0; i < severity.Length; i++)
+                sortedSeverity[i] = severity[i];
+            Array.Sort(sortedSeverity);
+            Array.Reverse(sortedSeverity);
+            Console.WriteLine("****************************");
+            Console.WriteLine("--- Triage Priority List ---");
+            Console.WriteLine("****************************");
+            for (int i = 0; i < sortedSeverity.Length; i++)
+                Console.WriteLine("Rank "+(i + 1)+": Severity "+(sortedSeverity[i]));
+            Array.Sort(sortedSeverity); // sort ascending again
+            int mid1 = sortedSeverity[(sortedSeverity.Length / 2) - 1];
+            int mid2 = sortedSeverity[sortedSeverity.Length / 2];
+            double median = (mid1 + mid2) / 2.0;
+            Console.WriteLine("Median Severity Score: "+median);
+            int criticalCount = 0;
+            foreach (int s in severity)
+                if (s <= 3) criticalCount++;
+            Console.WriteLine("Critical Cases (severity <= 3): " + criticalCount);
+            int targetSeverity = 7;
+            int index = Array.IndexOf(sortedSeverity, targetSeverity);
+            if (index >= -1)
+                Console.WriteLine("Severity  "+targetSeverity+" found at position "+(index +1)+" in sorted list.");
+            else
+                Console.WriteLine("Severity  " +targetSeverity+ "  not found.");
+        }
 
+      
 
         static void Main(string[] args)
         {
@@ -280,9 +316,9 @@
                     case "9":
                         FlightSeatAllocationDisplay();
                         break;
-                    //case "10":
-                    //    HospitalPatientPriorityQueue();
-                    //    break;
+                    case "10":
+                        HospitalPatientPriorityQueue();
+                        break;
                     case "0":
                         exit = true; 
                         break;
