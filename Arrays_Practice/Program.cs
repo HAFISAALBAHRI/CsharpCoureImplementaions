@@ -201,6 +201,47 @@
 
         }
 
+        public static void FlightSeatAllocationDisplay()
+        {
+            int[] seats = { 12, 5, 20, 8, 15, 3, 18, 25, 10, 7, 30, 22, 28, 35, 40 };
+
+            Console.WriteLine("****************************");
+            Console.WriteLine("--- Original Seat Assignments ---");
+            Console.WriteLine("****************************");
+            foreach (int seat in seats)
+                Console.WriteLine(seat);
+
+            Array.Sort(seats);
+
+            Console.WriteLine("****************************");
+            Console.WriteLine("--- Boarding Order (Sorted) ---");
+            Console.WriteLine("****************************");
+            foreach (int seat in seats)
+                Console.WriteLine(seat);
+
+            int targetSeat = 22;
+            int index = Array.IndexOf(seats, targetSeat);
+            if (index >= -1)
+                Console.WriteLine("Seat  "+targetSeat+" found at sorted index "+index);
+            else
+                Console.WriteLine("Seat "+targetSeat+" not found.");
+
+            int[] reverse = new int[seats.Length];
+            for (int i = 0; i < seats.Length; i++)
+                reverse[i] = seats[i];
+            Array.Reverse(reverse);
+
+            Console.WriteLine("****************************");
+            Console.WriteLine("--- Sorted vs Reversed ---");
+            Console.WriteLine("****************************");
+            for (int i = 0; i < seats.Length; i++)
+                Console.WriteLine("Sorted:  "+(seats[i])+ "  Reversed: "+(reverse[i]));
+
+            Console.WriteLine("Total Seat Count: "+seats.Length);
+        }
+
+
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -236,9 +277,9 @@
                     case "8":
                         SalesPerformanceAnalyzer();
                         break;
-                    //case "9": 
-                    //    FlightSeatAllocationDisplay(); 
-                    //    break;
+                    case "9":
+                        FlightSeatAllocationDisplay();
+                        break;
                     //case "10":
                     //    HospitalPatientPriorityQueue();
                     //    break;
