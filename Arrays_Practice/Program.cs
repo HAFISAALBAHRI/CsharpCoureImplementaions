@@ -28,6 +28,44 @@
             }
             Console.WriteLine("Total readings : "+ (temperatures.Length));
         }
+
+        public static void StudentScoreBoard()
+        {
+            int[] scores = { 85, 72, 90, 66, 78, 95 };
+
+            Console.WriteLine("Original Scores :");                                           
+            foreach (int score in scores)
+            {
+                Console.WriteLine(score);
+            }
+            Array.Reverse(scores);
+            Console.WriteLine("Reversed Scores :");
+            foreach (int score in scores)
+            {
+                Console.WriteLine(score);
+            }
+        }
+
+        //public static void ProductPriceFinder()
+        //{
+        //    double[] prices = { 4.99, 55.50, 12.25, 7.25, 15.20 };
+        //    for (int i = 0; i < prices.Length; i++)
+        //    {
+        //        Console.WriteLine("Product  " +(i + 1)+  " : " +(prices[i])+  "OMR" );
+        //    }
+        //    double targetPrice = 7.25;
+        //    int index = Array.IndexOf(prices, targetPrice);
+        //    if (index == -1)
+        //    {
+        //        Console.WriteLine("Price "+ targetPrice+ " OMR found at Product  " +(index + 1));
+        //    }
+        //    else
+        //    {
+        //        Console.WriteLine("Price "+targetPrice+" OMR not found." );
+        //    }
+
+        //}
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -42,9 +80,9 @@
                     case "1":
                         TemperatureLog();
                         break;
-                    //case "2": 
-                    //    StudentScoreBoard();
-                    //    break;
+                    case "2":
+                        StudentScoreBoard();
+                        break;
                     //case "3":
                     //    ProductPriceFinder();
                     //    break;
