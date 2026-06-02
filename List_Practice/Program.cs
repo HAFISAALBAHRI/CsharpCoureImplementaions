@@ -33,6 +33,28 @@
             Console.WriteLine("*****************************************");
         }
 
+        public static void StudentScoreBoard()
+        {
+            List<int> scores = new List<int> { 85, 72, 90, 66, 78, 95 };
+            Console.WriteLine("***********************");
+            Console.WriteLine("Original Scores :");
+            Console.WriteLine("***********************");
+            foreach (int score in scores)
+            {
+                Console.WriteLine(score);
+            }
+
+            scores.Reverse();
+            Console.WriteLine("**********************");
+            Console.WriteLine("Reversed Scores :");
+            Console.WriteLine("**********************");
+            foreach (int score in scores)
+            {
+                Console.WriteLine(score);
+            }
+        }
+
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -47,9 +69,9 @@
                     case "1":
                         TemperatureLog();
                         break;
-                    //case "2":
-                    //    StudentScoreBoard();
-                    //    break;
+                    case "2":
+                        StudentScoreBoard();
+                        break;
                     //case "3":
                     //    ProductPriceFinder();
                     //    break;
