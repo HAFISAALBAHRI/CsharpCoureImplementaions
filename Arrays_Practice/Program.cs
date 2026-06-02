@@ -169,6 +169,38 @@
 
         }
 
+        public static void SalesPerformanceAnalyzer()
+        {
+            double[] revenue = { 1200.50, 1500.75, 1800.00, 1100.25, 950.00, 2000.00, 1750.50, 1600.25, 2100.75, 1300.00, 1450.25, 1900.00 };
+            Console.WriteLine("********************************");
+            Console.WriteLine("--- Original Monthly Revenue ---");
+            Console.WriteLine("********************************");
+            for (int i = 0; i < revenue.Length; i++)
+                Console.WriteLine("Month "+(i + 1)+": "+(revenue[i])+" OMR");
+            double[] sortedCopy = new double[revenue.Length];
+            for (int i = 0; i < revenue.Length; i++)
+                sortedCopy[i] = revenue[i];
+            Array.Sort(sortedCopy);
+            Console.WriteLine("****************************");
+            Console.WriteLine("--- Sorted Revenue Trend ---");
+            Console.WriteLine("****************************");
+            foreach (double r in sortedCopy)
+                Console.WriteLine(r +"  OMR");
+            double worst = sortedCopy[0];
+            double best = sortedCopy[sortedCopy.Length - 1];
+            Console.WriteLine("**********************************");
+            Console.WriteLine("Worst Month Revenue:"+ worst+" OMR");
+            Console.WriteLine("Best Month Revenue:"+ best+" OMR");
+            Console.WriteLine("**********************************");
+            double total = 0;
+            foreach (double r in revenue)
+                total += r;
+            double average = total / revenue.Length;
+            Console.WriteLine("Average Monthly Revenue: "+average.ToString("F2")+" OMR");
+
+
+        }
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -201,9 +233,9 @@
                     case "7":
                         LibraryBookShelfScanner();
                         break;
-                    //case "8":
-                    //    SalesPerformanceAnalyzer();
-                    //    break;
+                    case "8":
+                        SalesPerformanceAnalyzer();
+                        break;
                     //case "9": 
                     //    FlightSeatAllocationDisplay(); 
                     //    break;
