@@ -4,7 +4,9 @@
     {
         static void ShowMenu()
         {
+            Console.WriteLine("****************************");
             Console.WriteLine("=== Arrays Practice Menu ===");
+            Console.WriteLine("****************************");
             Console.WriteLine("1 - Temperature Log");
             Console.WriteLine("2 - Student Score Board");
             Console.WriteLine("3 - Product Price Finder");
@@ -26,20 +28,25 @@
             {
                 Console.WriteLine("Day " + (i + 1) + " : " +(temperatures[i])+ "  C");
             }
+            Console.WriteLine("*****************************************");
             Console.WriteLine("Total readings : "+ (temperatures.Length));
+            Console.WriteLine("*****************************************");
         }
 
         public static void StudentScoreBoard()
         {
             int[] scores = { 85, 72, 90, 66, 78, 95 };
-
-            Console.WriteLine("Original Scores :");                                           
+            Console.WriteLine("***********************");
+            Console.WriteLine("Original Scores :");
+            Console.WriteLine("***********************");
             foreach (int score in scores)
             {
                 Console.WriteLine(score);
             }
             Array.Reverse(scores);
+            Console.WriteLine("**********************");
             Console.WriteLine("Reversed Scores :");
+            Console.WriteLine("**********************");
             foreach (int score in scores)
             {
                 Console.WriteLine(score);
@@ -57,7 +64,9 @@
             int index = Array.IndexOf(prices, targetPrice);
             if (index == -1)
             {
+                Console.WriteLine("**************************************************************");
                 Console.WriteLine("Price " + targetPrice + " OMR found at Product  " + (index + 1));
+                Console.WriteLine("***************************************************************");
             }
             else
             {
@@ -65,6 +74,25 @@
             }
 
         }
+
+        public static void RaceFinishTimes()
+        {
+            int[] finishTimes = { 320, 275, 290, 310, 305, 280, 330, 300 };
+            Console.WriteLine("*****************************");
+            Console.WriteLine("--- Original Finish Times ---");
+            Console.WriteLine("*****************************");
+            foreach (int time in finishTimes)
+                Console.WriteLine(time+ "  seconds");
+            Array.Sort(finishTimes);
+            Console.WriteLine("********************************************");
+            Console.WriteLine(" --- Sorted Finish Times (Fastest First) ---");
+            Console.WriteLine("********************************************");
+            foreach (int time in finishTimes)
+                Console.WriteLine(time+ "  seconds");
+            Console.WriteLine("");
+            Console.WriteLine(" Total Participants  : "+finishTimes.Length );
+        }
+
 
         static void Main(string[] args)
         {
@@ -86,9 +114,9 @@
                     case "3":
                         ProductPriceFinder();
                         break;
-                    //case "4":
-                    //    RaceFinishTimes();
-                    //    break;
+                    case "4":
+                        RaceFinishTimes();
+                        break;
                     //case "5":
                     //    ClassroomGradeReport();
                     //    break;
