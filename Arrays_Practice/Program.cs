@@ -46,25 +46,25 @@
             }
         }
 
-        //public static void ProductPriceFinder()
-        //{
-        //    double[] prices = { 4.99, 55.50, 12.25, 7.25, 15.20 };
-        //    for (int i = 0; i < prices.Length; i++)
-        //    {
-        //        Console.WriteLine("Product  " +(i + 1)+  " : " +(prices[i])+  "OMR" );
-        //    }
-        //    double targetPrice = 7.25;
-        //    int index = Array.IndexOf(prices, targetPrice);
-        //    if (index == -1)
-        //    {
-        //        Console.WriteLine("Price "+ targetPrice+ " OMR found at Product  " +(index + 1));
-        //    }
-        //    else
-        //    {
-        //        Console.WriteLine("Price "+targetPrice+" OMR not found." );
-        //    }
+        public static void ProductPriceFinder()
+        {
+            double[] prices = { 4.99, 55.50, 12.25, 7.25, 15.20 };
+            for (int i = 0; i < prices.Length; i++)
+            {
+                Console.WriteLine("Product  " + (i + 1) + " : " + (prices[i]) + "OMR");
+            }
+            double targetPrice = 7.25;
+            int index = Array.IndexOf(prices, targetPrice);
+            if (index == -1)
+            {
+                Console.WriteLine("Price " + targetPrice + " OMR found at Product  " + (index + 1));
+            }
+            else
+            {
+                Console.WriteLine("Price " + targetPrice + " OMR not found.");
+            }
 
-        //}
+        }
 
         static void Main(string[] args)
         {
@@ -83,9 +83,9 @@
                     case "2":
                         StudentScoreBoard();
                         break;
-                    //case "3":
-                    //    ProductPriceFinder();
-                    //    break;
+                    case "3":
+                        ProductPriceFinder();
+                        break;
                     //case "4":
                     //    RaceFinishTimes();
                     //    break;
