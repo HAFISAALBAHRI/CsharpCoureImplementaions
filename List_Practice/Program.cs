@@ -54,6 +54,29 @@
             }
         }
 
+        public static void ProductPriceFinder()
+        {
+            List<double> prices = new List<double> { 4.99, 55.50, 12.25, 7.25, 15.20 };
+            for (int i = 0; i < prices.Count; i++) 
+            {
+                Console.WriteLine("Product " + (i + 1) + " : " + prices[i] + " OMR");
+            }
+            double targetPrice = 7.25;
+
+            if (prices.Contains(targetPrice))
+            {
+                int index = prices.IndexOf(targetPrice); // IndexOf works directly on List
+                Console.WriteLine("**************************************************************");
+                Console.WriteLine("Price " + targetPrice + " OMR found at Product " + (index + 1));
+                Console.WriteLine("**************************************************************");
+            }
+            else
+            {
+                Console.WriteLine("Price " + targetPrice + " OMR not found.");
+            }
+        }
+
+
 
         static void Main(string[] args)
         {
@@ -72,9 +95,9 @@
                     case "2":
                         StudentScoreBoard();
                         break;
-                    //case "3":
-                    //    ProductPriceFinder();
-                    //    break;
+                    case "3":
+                        ProductPriceFinder();
+                        break;
                     //case "4":
                     //    RaceFinishTimes();
                     //    break;
