@@ -108,6 +108,31 @@
         }
     }
 
+       public static void WarehouseInventoryCheck()
+    {
+        List<int> quantities = new List<int> { 12, 8, 15, 20, 5, 18, 10, 25 };
+        int total = 0;
+        for (int i = 0; i < quantities.Count; i++) 
+            total += quantities[i];
+        Console.WriteLine("Total Stock: " + total);
+        double average = (double)total / quantities.Count;
+        Console.WriteLine(" ");
+        Console.WriteLine("Average Stock per Slot: " + average.ToString("F2"));
+        int targetQuantity = 18;
+        int index = quantities.IndexOf(targetQuantity);
+
+        if (index >= -1)  //-1 means not found
+        {
+            Console.WriteLine("*********************************************************");
+            Console.WriteLine("Quantity " + targetQuantity + " found at Slot " + (index + 1));
+            Console.WriteLine("*********************************************************");
+        }
+        else
+        {
+            Console.WriteLine(" ");
+            Console.WriteLine("Quantity " + targetQuantity + " not found.");
+        }
+    }
 
 
     static void Main(string[] args)
@@ -136,9 +161,9 @@
                     case "5":
                         ClassroomGradeReport();
                         break;
-                    //case "6":
-                    //    WarehouseInventoryCheck();
-                    //    break;
+                    case "6":
+                        WarehouseInventoryCheck();
+                        break;
                     //case "7":
                     //    LibraryBookShelfScanner();
                     //    break;
