@@ -62,7 +62,7 @@
             }
             double targetPrice = 7.25;
             int index = Array.IndexOf(prices, targetPrice);
-            if (index == -1)
+            if (index >= -1)
             {
                 Console.WriteLine("**************************************************************");
                 Console.WriteLine("Price " + targetPrice + " OMR found at Product  " + (index + 1));
@@ -109,7 +109,31 @@
             }
         }
 
+        public static void WarehouseInventoryCheck()
+        {
+            int[] quantities = { 12 , 8 , 15 , 20 , 5, 18 , 10 , 25 };
+            int total = 0;
+            for (int i = 0; i < quantities.Length; i++)
+                total += quantities[i];
+            Console.WriteLine("Total Stock: "  +total);
+            double average = (double)total / quantities.Length;
+            Console.WriteLine(" ");
+           Console.WriteLine("Average Stock per Slot: " + average.ToString("F2"));
+            int targetQuantity = 18;
+            int index = Array.IndexOf(quantities, targetQuantity);
+            if (index >= -1)
+            {
+                Console.WriteLine("*********************************************************");
+                Console.WriteLine("Quantity "+ targetQuantity + " found at Slot "+(index + 1));
+                Console.WriteLine("**********************************************************");
+            }
+            else
+            {
+                Console.WriteLine(" ");
+                Console.WriteLine("Quantity "+targetQuantity+" not found." );
+            }
 
+        }
         static void Main(string[] args)
         {
             bool exit = false;
@@ -136,9 +160,9 @@
                     case "5":
                         ClassroomGradeReport();
                         break;
-                    //case "6":
-                    //    WarehouseInventoryCheck();
-                    //    break;
+                    case "6":
+                        WarehouseInventoryCheck();
+                        break;
                     //case "7":
                     //    LibraryBookShelfScanner();
                     //    break;
