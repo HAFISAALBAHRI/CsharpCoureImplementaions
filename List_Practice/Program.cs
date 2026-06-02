@@ -134,8 +134,39 @@
         }
     }
 
+        public static void LibraryBookShelfScanner()
+        {
+            List<int> copies = new List<int> { 3, 0, 5, 7, 2, 9, 4, 6, 1 };
+            Console.WriteLine("****************************");
+            Console.WriteLine("--- Original Copy Counts ---");
+            Console.WriteLine("****************************");
+            foreach (int c in copies)
+                Console.WriteLine(c);
+            copies.Sort();
 
-    static void Main(string[] args)
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("--- Sorted Copy Counts (Fewest to Most) ---");
+            Console.WriteLine("*******************************************");
+            foreach (int c in copies)
+                Console.WriteLine(c);
+
+            int mostCopies = copies[copies.Count - 1];
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("Book with most copies: " + mostCopies);
+            Console.WriteLine("*******************************************");
+
+            bool hasZero = copies.Contains(0); // List has Contains built-in
+
+            if (hasZero)
+                Console.WriteLine("At least one book has zero copies.");
+            else
+                Console.WriteLine("All books have at least one copy.");
+        }
+
+
+
+
+        static void Main(string[] args)
         {
             bool exit = false;
             while (exit == false)
@@ -164,9 +195,9 @@
                     case "6":
                         WarehouseInventoryCheck();
                         break;
-                    //case "7":
-                    //    LibraryBookShelfScanner();
-                    //    break;
+                    case "7":
+                        LibraryBookShelfScanner();
+                        break;
                     //case "8":
                     //    SalesPerformanceAnalyzer();
                     //    break;
