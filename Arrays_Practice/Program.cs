@@ -134,6 +134,41 @@
             }
 
         }
+
+        public static void LibraryBookShelfScanner()
+        {
+            int[] copies = { 3, 0, 5, 7, 2, 9, 4, 6, 1 };
+            Console.WriteLine("****************************");
+            Console.WriteLine("--- Original Copy Counts ---");
+            Console.WriteLine("****************************");
+            foreach (int c in copies)
+                Console.WriteLine(c);
+            Array.Sort(copies);
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("--- Sorted Copy Counts (Fewest to Most) ---");
+            Console.WriteLine("*******************************************");
+            foreach (int c in copies)
+                Console.WriteLine(c);
+            int mostCopies = copies[copies.Length - 1];
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("Book with most copies: "+mostCopies);
+            Console.WriteLine("*******************************************");
+            bool hasZero = false;
+            for (int i = 0; i < copies.Length; i++)
+            {
+                if (copies[i] == 0)
+                {
+                    hasZero = true;
+                    break;
+                }
+            }
+            if (hasZero)
+                Console.WriteLine("At least one book has zero copies.");
+            else
+                Console.WriteLine("All books have at least one copy.");
+
+        }
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -163,9 +198,9 @@
                     case "6":
                         WarehouseInventoryCheck();
                         break;
-                    //case "7":
-                    //    LibraryBookShelfScanner();
-                    //    break;
+                    case "7":
+                        LibraryBookShelfScanner();
+                        break;
                     //case "8":
                     //    SalesPerformanceAnalyzer();
                     //    break;
