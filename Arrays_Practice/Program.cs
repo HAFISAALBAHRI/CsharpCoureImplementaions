@@ -201,6 +201,7 @@ namespace Arrays_Practice
             double total = 0;
             foreach (double r in revenue)
                 total += r;
+                //total = total + r;
             double average = total / revenue.Length;
             Console.WriteLine("Average Monthly Revenue: "+average.ToString("F2")+" OMR");
 
