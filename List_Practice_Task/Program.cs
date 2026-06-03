@@ -83,6 +83,33 @@
             Console.WriteLine("Total guests: " + checkInQueue.Count);
         }
 
+        public static void HousekeepingFloorAssignment()
+        {
+            List<int> assignedRooms = new List<int> { 305, 210, 412, 108, 520, 315 };
+
+            Console.WriteLine("--- Original Assignment ---");
+            for (int i = 0; i < assignedRooms.Count; i++)
+                Console.WriteLine((i + 1) + ". Room " + assignedRooms[i]);
+
+            assignedRooms.Add(220);
+            assignedRooms.Add(330);
+            assignedRooms.Remove(412);
+
+            assignedRooms.Sort();
+            Console.WriteLine("--- Sorted Assignment ---");
+            foreach (int r in assignedRooms) Console.WriteLine("Room " + r);
+
+            int targetRoom = 315;
+            int index = assignedRooms.IndexOf(targetRoom);
+            Console.WriteLine("Room " + targetRoom + " found at index " + index);
+
+            assignedRooms.Insert(2, 405);
+            Console.WriteLine("--- Final Assignment ---");
+            foreach (int r in assignedRooms) Console.WriteLine("Room " + r);
+
+            Console.WriteLine("Total rooms: " + assignedRooms.Count);
+        }
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -100,9 +127,9 @@
                     case "2":
                         GuestCheckInQueue();
                         break;
-                    // case "3":
-                    //       HousekeepingFloorAssignment(); 
-                    //       break;
+                    case "3":
+                        HousekeepingFloorAssignment();
+                        break;
                     //  case "4":
                     //       BookingConflictResolver();
                     //       break;
