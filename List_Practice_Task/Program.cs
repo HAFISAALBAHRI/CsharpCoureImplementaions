@@ -34,12 +34,54 @@
                 Console.WriteLine((i + 1) + ". " + menuItems[i]);
 
             string checkDish = "Pizza";
-            Console.WriteLine(menuItems.Contains(checkDish) ? checkDish + " is available." : checkDish + " is not available.");
+            if (menuItems.Contains(checkDish))
+            {
+                Console.WriteLine(checkDish + " is available.");
+            }
+            else
+            {
+                Console.WriteLine(checkDish + " is not available.");
+            }
+
 
             Console.WriteLine("Total items: " + menuItems.Count);
         }
 
+        public static void GuestCheckInQueue()
+        {
+            List<string> checkInQueue = new List<string> { "Ali", "Sara", "John", "Mary", "Omar" };
 
+            Console.WriteLine("--- Original Queue ---");
+            for (int i = 0; i < checkInQueue.Count; i++)
+                Console.WriteLine((i + 1) + ". " + checkInQueue[i]);
+
+            checkInQueue.RemoveAt(0);
+            Console.WriteLine("--- Queue After First Check-In ---");
+            foreach (string g in checkInQueue) Console.WriteLine(g);
+
+            checkInQueue.RemoveAt(0);
+            Console.WriteLine("--- Queue After Second Check-In ---");
+            foreach (string g in checkInQueue) Console.WriteLine(g);
+
+            checkInQueue.Add("Fatima");
+            checkInQueue.Add("Hassan");
+            checkInQueue.Add("Noor");
+            Console.WriteLine("--- Queue After Adding New Guests ---");
+            foreach (string g in checkInQueue) Console.WriteLine(g);
+
+            string checkGuest = "Sara";
+            if (checkInQueue.Contains(checkGuest))
+            {
+                Console.WriteLine(checkGuest + " is still waiting.");
+            }
+            else
+            {
+                Console.WriteLine(checkGuest + " is not in the queue.");
+            }
+
+
+            Console.WriteLine("Total guests: " + checkInQueue.Count);
+        }
 
         static void Main(string[] args)
         {
@@ -55,15 +97,15 @@
                     case "1":
                         RoomServiceMenu(); 
                         break;
-                 //case "2":
-                 //       GuestCheckInQueue();
-                 //       break;
-                 // case "3":
-                 //       HousekeepingFloorAssignment(); 
-                 //       break;
-                 //  case "4":
-                 //       BookingConflictResolver();
-                 //       break;
+                    case "2":
+                        GuestCheckInQueue();
+                        break;
+                    // case "3":
+                    //       HousekeepingFloorAssignment(); 
+                    //       break;
+                    //  case "4":
+                    //       BookingConflictResolver();
+                    //       break;
                     case "0":
                         exit = true;
                         break;
