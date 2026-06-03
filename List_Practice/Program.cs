@@ -210,7 +210,7 @@
 
             int targetSeat = 22;
             int index = seats.IndexOf(targetSeat);
-            if (index != -1)
+            if (index >= -1)
                 Console.WriteLine("Seat " + targetSeat + " found at sorted index " + index);
             else
                 Console.WriteLine("Seat " + targetSeat + " not found.");
@@ -225,6 +225,35 @@
                 Console.WriteLine("Sorted: " + seats[i] + "   Reversed: " + reverse[i]);
 
             Console.WriteLine("Total Seat Count: " + seats.Count);
+        }
+
+        public static void HospitalPatientPriorityQueue()
+        {
+            List<int> severity = new List<int> { 5, 2, 8, 3, 7, 1, 9, 4, 6, 10, 2, 5, 3, 7, 8, 4, 6, 9, 1, 10 };
+            List<int> sortedSeverity = new List<int>(severity);
+            sortedSeverity.Sort();
+            sortedSeverity.Reverse();
+
+            Console.WriteLine("****************************");
+            Console.WriteLine("--- Triage Priority List ---");
+            Console.WriteLine("****************************");
+            for (int i = 0; i < sortedSeverity.Count; i++)
+                Console.WriteLine("Rank " + (i + 1) + ": Severity " + sortedSeverity[i]);
+            sortedSeverity.Sort(); // ascending again
+            int mid1 = sortedSeverity[(sortedSeverity.Count / 2) - 1];
+            int mid2 = sortedSeverity[sortedSeverity.Count / 2];
+            double median = (mid1 + mid2) / 2.0;
+            Console.WriteLine("Median Severity Score: " + median);
+            int criticalCount = 0;
+            foreach (int s in severity)
+                if (s <= 3) criticalCount++;
+            Console.WriteLine("Critical Cases (severity <= 3): " + criticalCount);
+            int targetSeverity = 7;
+            int index = sortedSeverity.IndexOf(targetSeverity);
+            if (index >= -1)
+                Console.WriteLine("Severity " + targetSeverity + " found at position " + (index + 1) + " in sorted list.");
+            else
+                Console.WriteLine("Severity " + targetSeverity + " not found.");
         }
 
         static void Main(string[] args)
@@ -265,9 +294,9 @@
                     case "9":
                         FlightSeatAllocationDisplay();
                         break;
-                    //case "10":
-                    //    HospitalPatientPriorityQueue();
-                    //    break;
+                    case "10":
+                        HospitalPatientPriorityQueue();
+                        break;
                     case "0":
                         exit = true;
                         break;
