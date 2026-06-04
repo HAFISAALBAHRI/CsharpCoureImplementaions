@@ -172,8 +172,6 @@ namespace StackQueue_Practice
             Console.WriteLine("Final Count: " + triageQueue.Count);
         }
 
-
-
         public static void ReverseSentence()
         {
             string sentence1 = "C# is fun to learn";
@@ -195,6 +193,7 @@ namespace StackQueue_Practice
             }
             Console.WriteLine("Reversed: " + reversed1.Trim());
             Console.WriteLine("-----------------------------");
+
             string sentence2 = "Stack and Queue are useful";
             Stack<string> wordStack2 = new Stack<string>();
             wordStack2.Push("Stack");
@@ -216,9 +215,57 @@ namespace StackQueue_Practice
             Console.WriteLine("-----------------------------");
         }
 
+        public static void TicketCounter()
+        {
+            Queue<string> regularQueue = new Queue<string>();
+            Queue<string> vipQueue = new Queue<string>();
+
+            regularQueue.Enqueue("R001");
+            regularQueue.Enqueue("R002");
+            regularQueue.Enqueue("R003");
+            regularQueue.Enqueue("R004");
+            regularQueue.Enqueue("R005");
+            vipQueue.Enqueue("V001");
+            vipQueue.Enqueue("V002");
+            vipQueue.Enqueue("V003");
+
+            Console.WriteLine("=== Regular Queue ===");
+            foreach (string t in regularQueue) Console.WriteLine(t);
+            Console.WriteLine("=== VIP Queue ===");
+            foreach (string t in vipQueue) Console.WriteLine(t);
+
+            int served = 0;
+            while (vipQueue.Count > 0)
+            {
+                Console.WriteLine("Serving VIP: " + vipQueue.Dequeue());
+                served++;
+            }
+
+            while (regularQueue.Count > 0)
+            {
+                Console.WriteLine("Serving Regular: " + regularQueue.Dequeue());
+                served++;
+            }
+
+            //while (regularQueue.Count > 0 || vipQueue.Count > 0)
+            //{
+            //    if (vipQueue.Count > 0)
+            //    {
+            //        Console.WriteLine("Serving VIP: " + vipQueue.Dequeue());
+            //        served++;
+            //    }
+            //    if (regularQueue.Count > 0)
+            //    {
+            //        Console.WriteLine("Serving Regular: " + regularQueue.Dequeue());
+            //        served++;
+            //    }
+            //}
+            Console.WriteLine("Total Tickets Served: " + served);
+        }
+
         static void Main(string[] args)
         {
-            bool exit = false;
+            bool exit = false;  
             while (exit == false)
             {
                 ShowMenu();
@@ -251,9 +298,9 @@ namespace StackQueue_Practice
                     //case "8": 
                     //    MultiLevelUndoRedo();
                     //    break;
-                    //case "9": 
-                    //    TicketCounter(); 
-                    //    break;
+                    case "9":
+                        TicketCounter();
+                        break;
                     //case "10":
                     //    OrderProcessing();
                     //    break;
