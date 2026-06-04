@@ -172,6 +172,50 @@ namespace StackQueue_Practice
             Console.WriteLine("Final Count: " + triageQueue.Count);
         }
 
+
+
+        public static void ReverseSentence()
+        {
+            string sentence1 = "C# is fun to learn";
+            Stack<string> wordStack1 = new Stack<string>();
+            wordStack1.Push("C#");
+            wordStack1.Push("is");
+            wordStack1.Push("fun");
+            wordStack1.Push("to");
+            wordStack1.Push("learn");
+
+            Console.WriteLine("Original: " + sentence1);
+            Console.WriteLine("Stack contents:");
+            foreach (string w in wordStack1) Console.WriteLine(w);
+            string reversed1 = "";
+            while (wordStack1.Count > 0)
+            {
+                string word = wordStack1.Pop();   // take the top word Using a variable 
+                reversed1 += word + " ";          // add it to the reversed sentence
+            }
+            Console.WriteLine("Reversed: " + reversed1.Trim());
+            Console.WriteLine("-----------------------------");
+            string sentence2 = "Stack and Queue are useful";
+            Stack<string> wordStack2 = new Stack<string>();
+            wordStack2.Push("Stack");
+            wordStack2.Push("and");
+            wordStack2.Push("Queue");
+            wordStack2.Push("are");
+            wordStack2.Push("useful");
+
+            Console.WriteLine("Original: " + sentence2);
+            Console.WriteLine("Stack contents:");
+            foreach (string w in wordStack2) Console.WriteLine(w);
+
+            string reversed2 = "";
+            while (wordStack2.Count > 0) 
+
+                reversed2 += wordStack2.Pop() + " "; //Direct append
+
+            Console.WriteLine("Reversed: " + reversed2.Trim());
+            Console.WriteLine("-----------------------------");
+        }
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -201,9 +245,9 @@ namespace StackQueue_Practice
                     //case "6":
                     //    PrintSpooler();
                     //    break;
-                    //case "7":
-                    //    ReverseSentence(); 
-                    //    break;
+                    case "7":
+                        ReverseSentence();
+                        break;
                     //case "8": 
                     //    MultiLevelUndoRedo();
                     //    break;
