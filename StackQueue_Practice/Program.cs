@@ -86,6 +86,48 @@ namespace StackQueue_Practice
             Console.WriteLine("Total Guests: " + checkInQueue.Count);
         }
 
+        public static void TextEditorUndoSystem()
+        {
+            Stack<string> undoStack = new Stack<string>();
+            Stack<string> tempStack = new Stack<string>();
+            undoStack.Push("Typed: Hello");
+            undoStack.Push("Typed: World");
+            undoStack.Push("Deleted: o");
+            undoStack.Push("Typed: name");
+            undoStack.Push("Bold: Hello");
+            undoStack.Push("Italic: World");
+            undoStack.Push("Undo Bold");
+            Console.WriteLine("=== Undo History ===");
+            foreach (string act in undoStack)
+                Console.WriteLine(act);
+
+            Console.WriteLine("Next Undo (Peek): " + undoStack.Peek()); // Peek is like “looking at the top card of a deck” without taking it out.
+
+            Console.WriteLine("Undo: " + undoStack.Pop());
+            Console.WriteLine("Undo: " + undoStack.Pop());
+
+            Console.WriteLine("=== Remaining Undo History ===");
+            foreach (string act in undoStack) 
+            Console.WriteLine(act);
+
+            string target = "Bold: Hello";  // select target 
+            Console.WriteLine("Selective Undo: Removing " + target);
+
+            while (undoStack.Count > 0) // loop untell finsh 
+            {
+                string current = undoStack.Pop();   // removes the top action from the undo stack and current holds that action.
+                if (current != target) tempStack.Push(current); //If the action is not the target it push it into tempStack but If it is the target we skip
+            }
+            while (tempStack.Count > 0)
+                undoStack.Push(tempStack.Pop());  // We pop everything from tempStack back into undoStack in the same order but without target
+
+            Console.WriteLine("=== After Selective Undo ===");
+            foreach (string act in undoStack)
+            Console.WriteLine(act);
+
+            Console.WriteLine("Final Count: " + undoStack.Count);
+        }
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -103,9 +145,9 @@ namespace StackQueue_Practice
                     case "2":
                         HotelCheckInQueue();
                         break;
-                    //case "3":
-                    //    TextEditorUndoSystem();
-                    //    break;
+                    case "3":
+                        TextEditorUndoSystem();
+                        break;
                     //case "4": 
                     //    HospitalTriage(); 
                     //    break;
