@@ -54,7 +54,37 @@ namespace StackQueue_Practice
             Console.WriteLine("Total Pages: " + browserHistory.Count);
         }
 
+        public static void HotelCheckInQueue()
+        {
+            Queue<string> checkInQueue = new Queue<string>();
+            checkInQueue.Enqueue("Ali");
+            checkInQueue.Enqueue("Sara");
+            checkInQueue.Enqueue("Omar");
+            checkInQueue.Enqueue("Fatima");
+            checkInQueue.Enqueue("Hassan");
 
+            Console.WriteLine("=== Waiting Guests ===");
+            foreach (string guest in checkInQueue)
+                Console.WriteLine(guest);
+
+            Console.WriteLine("Next Guest (Peek): " + checkInQueue.Peek());
+
+            Console.WriteLine("Serving: " + checkInQueue.Dequeue());
+            Console.WriteLine("Serving: " + checkInQueue.Dequeue());
+
+            Console.WriteLine("=== Remaining Queue ===");
+            foreach (string guest in checkInQueue)
+                Console.WriteLine(guest);
+
+            string checkGuest = "Sara";
+            if (checkInQueue.Contains(checkGuest))
+
+                Console.WriteLine("Contains " + checkGuest);
+            else
+                Console.WriteLine("not Contains " + checkGuest);
+           
+            Console.WriteLine("Total Guests: " + checkInQueue.Count);
+        }
 
         static void Main(string[] args)
         {
@@ -70,9 +100,9 @@ namespace StackQueue_Practice
                     case "1":
                         BrowserHistoryTracker(); 
                         break;
-                    //case "2":
-                    //    HotelCheckInQueue(); 
-                    //    break;
+                    case "2":
+                        HotelCheckInQueue();
+                        break;
                     //case "3":
                     //    TextEditorUndoSystem();
                     //    break;
