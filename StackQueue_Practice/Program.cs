@@ -172,6 +172,68 @@ namespace StackQueue_Practice
             Console.WriteLine("Final Count: " + triageQueue.Count);
         }
 
+        public static void ParenthesisValidator()
+        {
+            string test1 = "(a+[b*c]-{d/e})";
+            string test2 = "(a+[b*c}-{d/e})";
+            string test3 = "(a+[b*c]-{d/e)";
+            string[] tests = { test1, test2, test3 };
+
+            foreach (string test in tests)
+            {
+                Stack<char> bracketStack = new Stack<char>();
+                bool valid = true;
+
+                for (int i = 0; i < test.Length; i++)
+                {
+                    char ch = test[i];
+
+                    if (ch == '(' || ch == '[' || ch == '{')
+                    {
+                        bracketStack.Push(ch);
+                    }
+
+                    else if (ch == ')' || ch == ']' || ch == '}')
+                    {
+                        if (bracketStack.Count == 0)
+                        {
+                            valid = false;
+                            break;
+                        }
+
+                        char top = bracketStack.Peek();
+
+
+                        if (ch == ')')
+                        {
+                            if (top == '(') bracketStack.Pop();
+                            else { valid = false; break; }
+                        }
+                        else if (ch == ']')
+                        {
+                            if (top == '[') bracketStack.Pop();
+                            else { valid = false; break; }
+                        }
+                        else if (ch == '}')
+                        {
+                            if (top == '{') bracketStack.Pop();
+                            else { valid = false; break; }
+                        }
+                    }
+                }
+
+
+                if (bracketStack.Count > 0) valid = false;
+
+
+                if (valid)
+                    Console.WriteLine("Test: " + test + " => Valid");
+                else
+                    Console.WriteLine("Test: " + test + " => Invalid");
+            }
+        }
+     
+
         public static void ReverseSentence()
         {
             string sentence1 = "C# is fun to learn";
@@ -235,31 +297,31 @@ namespace StackQueue_Practice
             foreach (string t in vipQueue) Console.WriteLine(t);
 
             int served = 0;
-            while (vipQueue.Count > 0)
-            {
-                Console.WriteLine("Serving VIP: " + vipQueue.Dequeue());
-                served++;
-            }
-
-            while (regularQueue.Count > 0)
-            {
-                Console.WriteLine("Serving Regular: " + regularQueue.Dequeue());
-                served++;
-            }
-
-            //while (regularQueue.Count > 0 || vipQueue.Count > 0)
+            //while (vipQueue.Count > 0)
             //{
-            //    if (vipQueue.Count > 0)
-            //    {
-            //        Console.WriteLine("Serving VIP: " + vipQueue.Dequeue());
-            //        served++;
-            //    }
-            //    if (regularQueue.Count > 0)
-            //    {
-            //        Console.WriteLine("Serving Regular: " + regularQueue.Dequeue());
-            //        served++;
-            //    }
+            //    Console.WriteLine("Serving VIP: " + vipQueue.Dequeue());
+            //    served++;
             //}
+
+            //while (regularQueue.Count > 0)
+            //{
+            //    Console.WriteLine("Serving Regular: " + regularQueue.Dequeue());
+            //    served++;
+            //}
+
+            while (regularQueue.Count > 0 || vipQueue.Count > 0)
+            {
+                if (vipQueue.Count > 0)
+                {
+                    Console.WriteLine("Serving VIP: " + vipQueue.Dequeue());
+                    served++;
+                }
+                if (regularQueue.Count > 0)
+                {
+                    Console.WriteLine("Serving Regular: " + regularQueue.Dequeue());
+                    served++;
+                }
+            }
             Console.WriteLine("Total Tickets Served: " + served);
         }
 
@@ -286,9 +348,9 @@ namespace StackQueue_Practice
                     case "4":
                         HospitalTriage();
                         break;
-                    //case "5":
-                    //    ParenthesisValidator();
-                    //    break;
+                    case "5":
+                        ParenthesisValidator();
+                        break;
                     //case "6":
                     //    PrintSpooler();
                     //    break;
