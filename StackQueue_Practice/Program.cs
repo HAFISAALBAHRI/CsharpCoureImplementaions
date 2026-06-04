@@ -128,6 +128,50 @@ namespace StackQueue_Practice
             Console.WriteLine("Final Count: " + undoStack.Count);
         }
 
+        public static void HospitalTriage()
+        {
+            Queue<string> triageQueue = new Queue<string>();
+            Queue<string> tempQueue = new Queue<string>();
+
+            triageQueue.Enqueue("Ali");
+            triageQueue.Enqueue("Sara");
+            triageQueue.Enqueue("Omar");
+            triageQueue.Enqueue("Fatima");
+            triageQueue.Enqueue("Hassan");
+            triageQueue.Enqueue("Layla");
+            triageQueue.Enqueue("Nasser");
+            triageQueue.Enqueue("Aisha");
+
+            Console.WriteLine("=== Full Queue ===");
+            int pos = 1;
+            foreach (string p in triageQueue)
+                Console.WriteLine("Position " + pos++ + ": " + p);
+
+            Console.WriteLine("Next Patient (Peek): " + triageQueue.Peek());
+
+            Console.WriteLine("Processing: " + triageQueue.Dequeue());
+            Console.WriteLine("Processing: " + triageQueue.Dequeue());
+            Console.WriteLine("Processing: " + triageQueue.Dequeue());
+
+            Console.WriteLine("=== Remaining Queue ===");
+            foreach (string p in triageQueue) Console.WriteLine(p);
+
+            string target = "Hassan";
+            Console.WriteLine("Removing patient: " + target);
+
+            while (triageQueue.Count > 0)
+            {
+                string current = triageQueue.Dequeue();
+                if (current != target) tempQueue.Enqueue(current);
+            }
+            while (tempQueue.Count > 0)
+                triageQueue.Enqueue(tempQueue.Dequeue());
+
+            Console.WriteLine("=== Final Queue ===");
+            foreach (string p in triageQueue) Console.WriteLine(p);
+            Console.WriteLine("Final Count: " + triageQueue.Count);
+        }
+
         static void Main(string[] args)
         {
             bool exit = false;
@@ -148,9 +192,9 @@ namespace StackQueue_Practice
                     case "3":
                         TextEditorUndoSystem();
                         break;
-                    //case "4": 
-                    //    HospitalTriage(); 
-                    //    break;
+                    case "4":
+                        HospitalTriage();
+                        break;
                     //case "5":
                     //    ParenthesisValidator();
                     //    break;
