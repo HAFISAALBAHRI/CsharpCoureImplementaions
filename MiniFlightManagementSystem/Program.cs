@@ -97,6 +97,81 @@ namespace FlightManagementSystem
             Console.WriteLine("Total passengers: " +passengerNames.Count);
         }
 
+        static void BookFlightTicket()
+        {
+            Console.Write("Enter Ticket ID: ");
+            string ticketId = Console.ReadLine().Trim();
+            if (ticketNumbers.Contains(ticketId) == false)
+            {
+                Console.WriteLine("Error: Ticket ID not found.");
+                return;
+            }
+            if (cancelledTickets.Contains(ticketId))
+            {
+                Console.WriteLine("Error: This ticket has been cancelled.");
+                return;
+            }
+
+            if (bookingRecord.ContainsKey(ticketId))
+            {
+                Console.WriteLine("Error: This ticket already has a booking. Use Update Booking instead.");
+                return;
+            }
+
+            Console.WriteLine("Available Flights:");
+            int counter = 1;
+            foreach (string flight in flightNumbers)
+            {
+                Console.WriteLine($"{counter} . {flight}");
+                counter++;
+            }
+            //for (int i = 0; i < flightNumbers.Length; i++)  
+            //{
+            //    Console.WriteLine($"{i + 1} . {flightNumbers[i]}"); //i + 1 → لأن الفهرس يبدأ من 0، نضيف 1 حتى يظهر للمستخدم رقم تسلسلي يبدأ من
+            //}
+
+            Console.Write("Select flight (enter number): ");
+            if (!int.TryParse(Console.ReadLine(), out int flightChoice) || flightChoice < 1 || flightChoice > flightNumbers.Length) //الشرط يتحقق إذا -الإدخال ليس رقمًا -أو الرقم أصغر من 1 -أو الرقم أكبر من عدد الرحلات المتاحة 
+            {
+                Console.WriteLine("Invalid flight selection.");
+                return;
+            }
+            string selectedFlight = flightNumbers[flightChoice - 1]; // مثال: إذا المستخدم كتب 2 → نطرح 1 → الفهرس = 1 → الرحلة = OA102.  لان المستخدم يختار رقم من 1 والفهرس يبدأ من 0
+
+            Console.WriteLine("Available Dates:");
+            for (int i = 0; i < availableDates.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {availableDates[i]}");
+            }
+
+            Console.Write("Select date (enter number): ");
+            if (!int.TryParse(Console.ReadLine(), out int dateChoice) || dateChoice < 1 || dateChoice > availableDates.Count)
+            {
+                Console.WriteLine("Invalid date selection.");
+                return;
+            }
+            string selectedDate = availableDates[dateChoice - 1];  // 
+
+            // تخزين الحجز في Dictionary
+            bookingRecord[ticketId] = $"{selectedFlight}|{selectedDate}";
+
+            // جلب اسم الراكب من نفس الفهرس
+            int passengerIndex = ticketNumbers.IndexOf(ticketId);
+            string passengerName = passengerNames[passengerIndex];
+
+            // رسالة تأكيد
+            Console.WriteLine("*************************************");
+            Console.WriteLine("Booking Confirmed!");
+            Console.WriteLine($"Passenger: {passengerName}");
+            Console.WriteLine($"Ticket ID: {ticketId}");
+            Console.WriteLine($"Flight: {selectedFlight}");
+            Console.WriteLine($"Date: {selectedDate}");
+            Console.WriteLine("*************************************");
+        }
+
+
+
+
 
         static void Main(string[] args)
         {
@@ -122,7 +197,9 @@ namespace FlightManagementSystem
 
                     case "3":
                         Console.WriteLine("Case 03 - Book a Flight Ticket");
+                        BookFlightTicket();
                         break;
+
                     case "4":
                         Console.WriteLine("Case 04 - View Booking Details");
                         break;
