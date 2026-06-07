@@ -169,6 +169,46 @@ namespace FlightManagementSystem
             Console.WriteLine("*************************************");
         }
 
+        static void ViewBookingDetails()
+        {
+            Console.Write("Enter Ticket ID: ");
+            string ticketId = Console.ReadLine().Trim();
+
+            // التحقق من أن التذكرة موجودة
+            if (!ticketNumbers.Contains(ticketId))
+            {
+                Console.WriteLine("Error: Ticket ID not found.");
+            }
+            else if (cancelledTickets.Contains(ticketId))
+            {
+                Console.WriteLine("Error: This ticket has been cancelled.");
+            }
+            else if (!bookingRecord.ContainsKey(ticketId))
+            {
+                Console.WriteLine("Error: No booking found for this ticket.");
+            }
+            else
+            {
+                // جلب بيانات الحجز من الـ Dictionary
+                string bookingInfo = bookingRecord[ticketId];
+                string[] parts = bookingInfo.Split('|');
+                string flight = parts[0];
+                string date = parts[1];
+
+                // جلب اسم الراكب من نفس الفهرس
+                int passengerIndex = ticketNumbers.IndexOf(ticketId);
+                string passengerName = passengerNames[passengerIndex];
+
+                // عرض التفاصيل
+                Console.WriteLine("*************************************");
+                Console.WriteLine("Booking Details:");
+                Console.WriteLine($"Passenger: {passengerName}");
+                Console.WriteLine($"Ticket ID: {ticketId}");
+                Console.WriteLine($"Flight: {flight}");
+                Console.WriteLine($"Date: {date}");
+                Console.WriteLine("*************************************");
+            }
+        }
 
 
 
@@ -202,6 +242,7 @@ namespace FlightManagementSystem
 
                     case "4":
                         Console.WriteLine("Case 04 - View Booking Details");
+                        ViewBookingDetails();
                         break;
                     case "5":
                         Console.WriteLine("Case 05 - Update a Booking");
