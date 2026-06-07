@@ -64,9 +64,41 @@ namespace FlightManagementSystem
         }
         }
 
+        static void ViewPassengers()
+        {
+            if (passengerNames.Count == 0)
+            {
+                Console.WriteLine("No passengers registered yet.");
+                return;
+            }
+
+            Console.WriteLine("No. | Passenger Name | Ticket ID | Status");
+            Console.WriteLine("------------------------------------------");
+
+            for (int i = 0; i < passengerNames.Count; i++)
+            {
+                string name = passengerNames[i];
+                string ticket = ticketNumbers[i];
+                string status;
+
+                if (cancelledTickets.Contains(ticket))
+                {
+                    status = "CANCELLED";
+                }
+                else
+                {
+                    status = "Active";
+                }
+
+                Console.WriteLine((i + 1)  +  "    |      " +(name.Trim())+    "   |   "  +(ticket.Trim())+"   |  "+( status) );
+            }
+
+            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("Total passengers: " +passengerNames.Count);
+        }
 
 
-static void Main(string[] args)
+        static void Main(string[] args)
         {
             bool exit = false;
             while (exit == false)
@@ -81,9 +113,13 @@ static void Main(string[] args)
                         Console.WriteLine("Register New Passenger");
                         RegisterPassenger();
                         break;
+
                     case "2":
+
                         Console.WriteLine("Case 02 - View All Passengers");
+                        ViewPassengers();
                         break;
+
                     case "3":
                         Console.WriteLine("Case 03 - Book a Flight Ticket");
                         break;
