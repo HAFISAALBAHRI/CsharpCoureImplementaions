@@ -5,5 +5,6 @@
   <Project Path="LibraryManagementSystem/LibraryManagementSystem.csproj" Id="20678a4a-36ff-4969-be31-71c67fa7c00d" />
   <Project Path="List_Practice/List_Practice.csproj" Id="98586fb6-5726-4019-9c2f-0919c308918b" />
   <Project Path="List_Practice_Task/List_Practice_Task.csproj" Id="4843e674-bd52-4ac9-b455-57572aaa8bab" />
+  <Project Path="MiniFlightManagementSystem/MiniFlightManagementSystem.csproj" Id="9993f445-7722-43c5-882e-472481c43355" />
   <Project Path="StackQueue_Practice/StackQueue_Practice.csproj" Id="52548110-79e9-439d-b894-df75604adc5a" />
 </Solution>

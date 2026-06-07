@@ -1,0 +1,131 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Xml.Linq;
+
+namespace FlightManagementSystem
+{
+    internal class Program
+    {
+        static List<string> passengerNames = new List<string> { "Ali", "Sara", "Omar", "Fatima", "Hassan" };
+        static List<string> ticketNumbers = new List<string> { "TKT-001", "TKT-002", "TKT-003", "TKT-004", "TKT-005" };
+        static string[] flightNumbers = { "OA101", "OA102", "OA103", "OA104", "OA105", "OA106" };
+        static List<string> availableDates = new List<string> { "12-Jan-2026", "15-Jan-2026", "20-Jan-2026", "25-Jan-2026" };
+        static Dictionary<string, string> bookingRecord = new Dictionary<string, string>();
+        static Queue<string> checkedInQueue = new Queue<string>();
+        static Stack<string> boardingStack = new Stack<string>();
+        static List<string> cancelledTickets = new List<string>();
+        static Dictionary<string, string> passengerSeatMap = new Dictionary<string, string>();
+        static Queue<string> waitlistQueue = new Queue<string>();
+
+     
+        static void ShowMenu()
+        {
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("=== SKY WINGS FLIGHT MANAGEMENT SYSTEM ===");
+            Console.WriteLine("*******************************************");
+            Console.WriteLine("1 - Register New Passenger");
+            Console.WriteLine("2 - View All Passengers");
+            Console.WriteLine("3 - Book a Flight Ticket");
+            Console.WriteLine("4 - View Booking Details");
+            Console.WriteLine("5 - Update a Booking");
+            Console.WriteLine("6 - Cancel a Ticket");
+            Console.WriteLine("7 - Passenger Check-In");
+            Console.WriteLine("8 - Board Passengers");
+            Console.WriteLine("9 - Generate Flight Manifest");
+            Console.WriteLine("10 - Manage Waitlist & Seat Assignment");
+            Console.WriteLine("0 - Exit");
+            Console.WriteLine("*******************************************");
+        }
+
+        static void RegisterPassenger()
+        {
+            Console.Write("Enter passenger full name: ");
+            string name = Console.ReadLine().Trim();
+
+            if (string.IsNullOrEmpty(name))
+      {
+           Console.WriteLine("Error: Name cannot be empty.");
+       }
+         else if (passengerNames.Contains(name, StringComparer.OrdinalIgnoreCase))
+       {
+          Console.WriteLine("Error: Passenger already exists.");
+        }
+         else
+         {
+                string ticketId = "TKT-" + (passengerNames.Count + 1).ToString("D3");
+                passengerNames.Add(name);
+                ticketNumbers.Add(ticketId);
+                Console.WriteLine("*************************************");
+                Console.WriteLine("Passenger Registered Successfully!");
+                Console.WriteLine("Name: "+name);
+                Console.WriteLine("Ticket ID: "+ticketId);
+                Console.WriteLine("*************************************");
+           
+        }
+        }
+
+
+
+static void Main(string[] args)
+        {
+            bool exit = false;
+            while (exit == false)
+            {
+                ShowMenu();
+                Console.Write("Enter choice: ");
+                string option = Console.ReadLine();
+
+                switch (option)
+                {
+                    case "1":
+                        Console.WriteLine("Register New Passenger");
+                        RegisterPassenger();
+                        break;
+                    case "2":
+                        Console.WriteLine("Case 02 - View All Passengers");
+                        break;
+                    case "3":
+                        Console.WriteLine("Case 03 - Book a Flight Ticket");
+                        break;
+                    case "4":
+                        Console.WriteLine("Case 04 - View Booking Details");
+                        break;
+                    case "5":
+                        Console.WriteLine("Case 05 - Update a Booking");
+                        break;
+                    case "6":
+                        Console.WriteLine("Case 06 - Cancel a Ticket");
+                        break;
+                    case "7":
+                        Console.WriteLine("Case 07 - Passenger Check-In");
+                        break;
+                    case "8":
+                        Console.WriteLine("Case 08 - Board Passengers");
+                        break;
+                    case "9":
+                        Console.WriteLine("Case 09 - Generate Flight Manifest");
+                        break;
+                    case "10":
+                        Console.WriteLine("Case 10 - Manage Waitlist & Seat Assignment");
+                        break;
+                    case "0":
+                        exit = true;
+                        break;
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
+
+                if (exit == false)
+                {
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
+
+            Console.WriteLine("Exiting system.");
+        }
+    }
+}
+
