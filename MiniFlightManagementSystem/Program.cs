@@ -210,6 +210,98 @@ namespace FlightManagementSystem
             }
         }
 
+        static void CancelBooking()
+        {
+            Console.Write("Enter Ticket ID to cancel: ");
+            string ticketId = Console.ReadLine().Trim();
+
+            if (!ticketNumbers.Contains(ticketId))
+            {
+                Console.WriteLine("Error: Ticket ID not found."); // if its there 
+                return;
+            }
+
+            if (cancelledTickets.Contains(ticketId)) // if it alrady cancelled 
+            {
+                Console.WriteLine("Error: This ticket is already cancelled.");
+                return;
+            }
+
+            if (!bookingRecord.ContainsKey(ticketId))
+            {
+                Console.WriteLine("Error: No booking found for this ticket."); // 
+                return;
+            }
+
+            cancelledTickets.Add(ticketId);// add to cancelled tickt 
+            bookingRecord.Remove(ticketId); // delet from Dictionary
+            int passengerIndex = ticketNumbers.IndexOf(ticketId);// name of passenger 
+            string passengerName = passengerNames[passengerIndex];
+            Console.WriteLine("*************************************");
+            Console.WriteLine("Booking Cancelled!");
+            Console.WriteLine($"Passenger: {passengerName}");
+            Console.WriteLine($"Ticket ID: {ticketId}");
+            Console.WriteLine("*************************************");
+        }
+
+        static void UpdateBooking()
+        {
+            Console.Write("Enter Ticket ID to update: ");
+            string ticketId = Console.ReadLine().Trim();
+            if (!ticketNumbers.Contains(ticketId))
+            {
+                Console.WriteLine("Error: Ticket ID not found.");
+                return;
+            }
+
+            if (cancelledTickets.Contains(ticketId))
+            {
+                Console.WriteLine("Error: This ticket has been cancelled.");
+                return;
+            }
+            if (!bookingRecord.ContainsKey(ticketId))
+            {
+                Console.WriteLine("Error: No booking found for this ticket.");
+                return;
+            }
+            Console.WriteLine("Available Flights:");// عرض الرحلات المتاحة
+            for (int i = 0; i < flightNumbers.Length; i++)
+            {
+                Console.WriteLine($"{i + 1}. {flightNumbers[i]}");
+            }
+
+            Console.Write("Select new flight (enter number): ");
+            if (!int.TryParse(Console.ReadLine(), out int flightChoice) || flightChoice < 1 || flightChoice > flightNumbers.Length)
+            {
+                Console.WriteLine("Invalid flight selection.");
+                return;
+            }
+            string newFlight = flightNumbers[flightChoice - 1];
+            Console.WriteLine("Available Dates:");
+            for (int i = 0; i < availableDates.Count; i++)
+            {
+                Console.WriteLine($"{i + 1}. {availableDates[i]}");
+            }
+
+            Console.Write("Select new date (enter number): ");
+            if (!int.TryParse(Console.ReadLine(), out int dateChoice) || dateChoice < 1 || dateChoice > availableDates.Count)
+            {
+                Console.WriteLine("Invalid date selection.");
+                return;
+            }
+            string newDate = availableDates[dateChoice - 1];
+            bookingRecord[ticketId] = $"{newFlight}|{newDate}";
+            int passengerIndex = ticketNumbers.IndexOf(ticketId);
+            string passengerName = passengerNames[passengerIndex];
+            Console.WriteLine("*************************************");
+            Console.WriteLine("Booking Updated!");
+            Console.WriteLine($"Passenger: {passengerName}");
+            Console.WriteLine($"Ticket ID: {ticketId}");
+            Console.WriteLine($"New Flight: {newFlight}");
+            Console.WriteLine($"New Date: {newDate}");
+            Console.WriteLine("*************************************");
+        }
+
 
 
 
@@ -244,11 +336,14 @@ namespace FlightManagementSystem
                         Console.WriteLine("Case 04 - View Booking Details");
                         ViewBookingDetails();
                         break;
+
                     case "5":
                         Console.WriteLine("Case 05 - Update a Booking");
+                        UpdateBooking();
                         break;
                     case "6":
                         Console.WriteLine("Case 06 - Cancel a Ticket");
+                        CancelBooking();
                         break;
                     case "7":
                         Console.WriteLine("Case 07 - Passenger Check-In");
