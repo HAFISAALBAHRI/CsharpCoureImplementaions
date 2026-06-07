@@ -302,8 +302,51 @@ namespace FlightManagementSystem
             Console.WriteLine("*************************************");
         }
 
-
-
+        static void PassengerCheckIn()
+        {
+            Console.Write("Enter Ticket ID for check-in: ");
+            string ticketId = Console.ReadLine().Trim();
+            if (!ticketNumbers.Contains(ticketId))
+            {
+                Console.WriteLine("Error: Ticket ID not found.");
+                return;
+            }
+            if (cancelledTickets.Contains(ticketId))
+            {
+                Console.WriteLine("Error: This ticket has been cancelled.");
+                return;
+            }
+            if (!bookingRecord.ContainsKey(ticketId))
+            {
+                Console.WriteLine("Error: No booking found for this ticket.");
+                return;
+            }
+            if (checkedInQueue.Contains(ticketId))
+            {
+                Console.WriteLine("Error: Passenger already checked in.");
+                return;
+            }
+            if (checkedInQueue.Count >= 10)
+            {
+                waitlistQueue.Enqueue(ticketId); // إضافة إلى قائمة الانتظار
+                Console.WriteLine("Check-In queue is full. Passenger added to waitlist.");
+                return;
+            }
+            checkedInQueue.Enqueue(ticketId);// إضافة الراكب إلى الطابور
+            int passengerIndex = ticketNumbers.IndexOf(ticketId);
+            string passengerName = passengerNames[passengerIndex];
+            Console.WriteLine("*************************************");
+            Console.WriteLine("Check-In Successful!");
+            Console.WriteLine($"Passenger: {passengerName}");
+            Console.WriteLine($"Ticket ID: {ticketId}");
+            Console.WriteLine("*************************************");
+            Console.WriteLine("\nCurrent Check-In Queue:");// IN LINE 
+            foreach (string id in checkedInQueue)
+            {
+                int index = ticketNumbers.IndexOf(id);
+                Console.WriteLine($"- {passengerNames[index]} (Ticket: {id})");
+            }
+        }
 
 
 
@@ -343,25 +386,33 @@ namespace FlightManagementSystem
                         Console.WriteLine("Case 05 - Update a Booking");
                         UpdateBooking();
                         break;
+
                     case "6":
                         Console.WriteLine("Case 06 - Cancel a Ticket");
                         CancelBooking();
                         break;
+
                     case "7":
                         Console.WriteLine("Case 07 - Passenger Check-In");
+                        PassengerCheckIn();
                         break;
+
                     case "8":
                         Console.WriteLine("Case 08 - Board Passengers");
                         break;
+
                     case "9":
                         Console.WriteLine("Case 09 - Generate Flight Manifest");
                         break;
+
                     case "10":
                         Console.WriteLine("Case 10 - Manage Waitlist & Seat Assignment");
                         break;
+
                     case "0":
                         exit = true;
                         break;
+
                     default:
                         Console.WriteLine("Invalid choice.");
                         break;
