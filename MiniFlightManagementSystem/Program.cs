@@ -210,40 +210,6 @@ namespace FlightManagementSystem
             }
         }
 
-        static void CancelBooking()
-        {
-            Console.Write("Enter Ticket ID to cancel: ");
-            string ticketId = Console.ReadLine().Trim();
-
-            if (!ticketNumbers.Contains(ticketId))
-            {
-                Console.WriteLine("Error: Ticket ID not found."); // if its there 
-                return;
-            }
-
-            if (cancelledTickets.Contains(ticketId)) // if it alrady cancelled 
-            {
-                Console.WriteLine("Error: This ticket is already cancelled.");
-                return;
-            }
-
-            if (!bookingRecord.ContainsKey(ticketId))
-            {
-                Console.WriteLine("Error: No booking found for this ticket."); // 
-                return;
-            }
-
-            cancelledTickets.Add(ticketId);// add to cancelled tickt 
-            bookingRecord.Remove(ticketId); // delet from Dictionary
-            int passengerIndex = ticketNumbers.IndexOf(ticketId);// name of passenger 
-            string passengerName = passengerNames[passengerIndex];
-            Console.WriteLine("*************************************");
-            Console.WriteLine("Booking Cancelled!");
-            Console.WriteLine($"Passenger: {passengerName}");
-            Console.WriteLine($"Ticket ID: {ticketId}");
-            Console.WriteLine("*************************************");
-        }
-
         static void UpdateBooking()
         {
             Console.Write("Enter Ticket ID to update: ");
@@ -301,6 +267,42 @@ namespace FlightManagementSystem
             Console.WriteLine($"New Date: {newDate}");
             Console.WriteLine("*************************************");
         }
+
+        static void CancelBooking()
+        {
+            Console.Write("Enter Ticket ID to cancel: ");
+            string ticketId = Console.ReadLine().Trim();
+
+            if (!ticketNumbers.Contains(ticketId))
+            {
+                Console.WriteLine("Error: Ticket ID not found."); // if its there 
+                return;
+            }
+
+            if (cancelledTickets.Contains(ticketId)) // if it alrady cancelled 
+            {
+                Console.WriteLine("Error: This ticket is already cancelled.");
+                return;
+            }
+
+            if (!bookingRecord.ContainsKey(ticketId))
+            {
+                Console.WriteLine("Error: No booking found for this ticket."); // 
+                return;
+            }
+
+            cancelledTickets.Add(ticketId);// add to cancelled tickt 
+            bookingRecord.Remove(ticketId); // delet from Dictionary
+            int passengerIndex = ticketNumbers.IndexOf(ticketId);// name of passenger 
+            string passengerName = passengerNames[passengerIndex];
+            Console.WriteLine("*************************************");
+            Console.WriteLine("Booking Cancelled!");
+            Console.WriteLine($"Passenger: {passengerName}");
+            Console.WriteLine($"Ticket ID: {ticketId}");
+            Console.WriteLine("*************************************");
+        }
+
+
 
 
 
