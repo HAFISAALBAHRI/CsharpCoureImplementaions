@@ -348,6 +348,128 @@ namespace FlightManagementSystem
             }
         }
 
+        static void BoardPassengers()
+        {
+            bool exit = false;
+            int currentRow = 10;       // يبدأ من الصف 10
+            char currentSeat = 'A';    // يبدأ من المقعد A
+
+            while (exit == false)
+            {
+                Console.WriteLine("\nBoarding Menu:");
+                Console.WriteLine("1. Load boarding stack from check-in queue");
+                Console.WriteLine("2. Board next passenger");
+                Console.WriteLine("3. View boarding stack");
+                Console.WriteLine("4. View boarding log");
+                Console.WriteLine("0. Back");
+                Console.Write("Choose option: ");
+                string choice = Console.ReadLine();
+
+                switch (choice)
+                {
+                    case "1": // Load boarding stack
+                        if (checkedInQueue.Count == 0)
+                        {
+                            Console.WriteLine("No passengers in check-in queue.");
+                        }
+                        else if (boardingStack.Count > 0)
+                        {
+                            Console.WriteLine("Boarding stack already loaded. Cannot load again.");
+                        }
+                        else
+                        {
+                            int loadedCount = 0;
+                            while (checkedInQueue.Count > 0)
+                            {
+                                string ticketId = checkedInQueue.Dequeue();
+                                boardingStack.Push(ticketId);
+                                loadedCount++;
+                            }
+                            Console.WriteLine($"Loaded {loadedCount} passengers into boarding stack.");
+                        }
+                        break;
+
+                    case "2": // Board next passenger
+                        if (boardingStack.Count == 0)
+                        {
+                            Console.WriteLine("No passengers in boarding stack.");
+                        }
+                        else
+                        {
+                            string ticketId = boardingStack.Pop();
+                            int passengerIndex = ticketNumbers.IndexOf(ticketId);
+                            string passengerName = passengerNames[passengerIndex];
+
+                            // تعيين المقعد
+                            string seat = $"{currentRow}{currentSeat}";
+                            passengerSeatMap[ticketId] = seat;
+
+                            // تحديث المقعد التالي
+                            if (currentSeat == 'F')
+                            {
+                                currentSeat = 'A';
+                                currentRow++;
+                            }
+                            else
+                            {
+                                currentSeat++;
+                            }
+
+                            Console.WriteLine($"Boarded: {passengerName} (Ticket: {ticketId}) → Seat {seat}");
+                        }
+                        break;
+
+                    case "3": // View boarding stack
+                        if (boardingStack.Count == 0)
+                        {
+                            Console.WriteLine("Boarding stack is empty.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Current Boarding Stack (Top → Bottom):");
+                            int pos = 1;
+                            foreach (string ticketId in boardingStack)
+                            {
+                                int passengerIndex = ticketNumbers.IndexOf(ticketId);
+                                Console.WriteLine($"{pos}. {passengerNames[passengerIndex]} (Ticket: {ticketId})");
+                                pos++;
+                            }
+                        }
+                        break;
+
+                    case "4": // View boarding log
+                        if (passengerSeatMap.Count == 0)
+                        {
+                            Console.WriteLine("No passengers boarded yet.");
+                        }
+                        else
+                        {
+                            Console.WriteLine("Boarding Log:");
+                            foreach (var entry in passengerSeatMap)
+                            {
+                                int passengerIndex = ticketNumbers.IndexOf(entry.Key);
+                                Console.WriteLine($"{passengerNames[passengerIndex]} → Seat {entry.Value}");
+                            }
+                        }
+                        break;
+
+                    case "0": // Back
+                        exit = true;
+                        break;
+
+                    default:
+                        Console.WriteLine("Invalid choice.");
+                        break;
+                }
+
+                if (exit == false)
+                {
+                    Console.WriteLine("Press any key to continue...");
+                    Console.ReadKey();
+                    Console.Clear();
+                }
+            }
+        }
 
 
         static void Main(string[] args)
@@ -399,6 +521,7 @@ namespace FlightManagementSystem
 
                     case "8":
                         Console.WriteLine("Case 08 - Board Passengers");
+                        BoardPassengers();
                         break;
 
                     case "9":
