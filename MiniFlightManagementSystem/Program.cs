@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Xml.Linq;
-
+using System.IO;
+using System.Linq; 
 namespace FlightManagementSystem
 {
     internal class Program
     {
-        static List<string> passengerNames = new List<string> { "Ali", "Sara", "Omar", "Fatima", "Hassan" };
-        static List<string> ticketNumbers = new List<string> { "TKT-001", "TKT-002", "TKT-003", "TKT-004", "TKT-005" };
+        static List<string> passengerNames = new List<string>();
+        static List<string> ticketNumbers = new List<string>();
+        //static List<string> passengerNames = new List<string> { "Ali", "Sara", "Omar", "Fatima", "Hassan" };
+        // static List<string> ticketNumbers = new List<string> { "TKT-001", "TKT-002", "TKT-003", "TKT-004", "TKT-005" };
         static string[] flightNumbers = { "OA101", "OA102", "OA103", "OA104", "OA105", "OA106" };
         static List<string> availableDates = new List<string> { "12-Jan-2026", "15-Jan-2026", "20-Jan-2026", "25-Jan-2026" };
         static Dictionary<string, string> bookingRecord = new Dictionary<string, string>();
@@ -17,7 +19,7 @@ namespace FlightManagementSystem
         static Dictionary<string, string> passengerSeatMap = new Dictionary<string, string>();
         static Queue<string> waitlistQueue = new Queue<string>();
 
-     
+        static string passengerFile = "passengers.txt"; // File Path for Persistence
         static void ShowMenu()
         {
             Console.WriteLine("*******************************************");
@@ -37,51 +39,91 @@ namespace FlightManagementSystem
             Console.WriteLine("*******************************************");
         }
 
+        static void LoadPassengersFromFile()
+        {
+            passengerNames.Clear();
+            ticketNumbers.Clear();
+            cancelledTickets.Clear();
+
+            if (File.Exists(passengerFile))
+            {
+                string[] lines = File.ReadAllLines(passengerFile);
+
+                foreach (string line in lines)
+                {
+                    string[] parts = line.Split('|');
+
+                    // basic check
+                    if (parts.Length == 3)
+                    {
+                        passengerNames.Add(parts[0]);   // Name
+                        ticketNumbers.Add(parts[1]);   // Ticket ID
+
+                        if (parts[2] == "CANCELLED")
+                        {
+                            cancelledTickets.Add(parts[1]); // add cancelled ticket
+                        }
+                    }
+                }
+            }
+        }
+
+        static void SavePassengersToFile()
+        {
+            var lines = passengerNames
+                .Select((name, i) => $"{name}|{ticketNumbers[i]}|{(cancelledTickets.Contains(ticketNumbers[i]) ? "CANCELLED" : "Active")}")
+                .ToList();
+            File.WriteAllLines(passengerFile, lines);
+        }
         static void RegisterPassenger()
         {
             Console.Write("Enter passenger full name: ");
             string name = Console.ReadLine().Trim();
 
             if (string.IsNullOrEmpty(name))
-      {
-           Console.WriteLine("Error: Name cannot be empty.");
-       }
-         else if (passengerNames.Contains(name, StringComparer.OrdinalIgnoreCase))
-       {
-          Console.WriteLine("Error: Passenger already exists.");
-        }
-         else
-         {
-                string ticketId = "TKT-" + (passengerNames.Count + 1).ToString("D3");
-                passengerNames.Add(name);
-                ticketNumbers.Add(ticketId);
+            {
+                Console.WriteLine("Error: Name cannot be empty.");
+            }
+            else if (passengerNames.Contains(name, StringComparer.OrdinalIgnoreCase)) //StringComparer.OrdinalIgnoreCase : A comparer that ignores uppercase/lowercase differences.
+            {
+                Console.WriteLine("Error: Passenger already exists.");
+            }
+            else
+            {
+                string ticketId = "TKT-" + (passengerNames.Count + 1).ToString("D3");//passengerNames.Count → gives the current number of passengers in the list.
+                passengerNames.Add(name); // add to list                                           //+ 1 → ensures the new passenger gets the next sequential number.
+                ticketNumbers.Add(ticketId);                                         //Converts the number into a string with 3 digits, padded with zeros.
+                using (StreamWriter writer = new StreamWriter(passengerFile, true))
+                {
+                    writer.WriteLine($"{name}|{ticketId}|Active");
+                }
                 Console.WriteLine("*************************************");
                 Console.WriteLine("Passenger Registered Successfully!");
-                Console.WriteLine("Name: "+name);
-                Console.WriteLine("Ticket ID: "+ticketId);
+                Console.WriteLine("Name: " + name);
+                Console.WriteLine("Ticket ID: " + ticketId);
                 Console.WriteLine("*************************************");
-           
-        }
+
+            }
         }
 
         static void ViewPassengers()
         {
-            if (passengerNames.Count == 0)
+            if (passengerNames.Count == 0)// Check if no passengers are registered.
             {
                 Console.WriteLine("No passengers registered yet.");
                 return;
             }
 
-            Console.WriteLine("No. | Passenger Name | Ticket ID | Status");
-            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("No. |            Passenger Name |           Ticket ID            | Status");
+            Console.WriteLine("-------------------------------------------------------------------------------");
 
-            for (int i = 0; i < passengerNames.Count; i++)
+            for (int i = 0; i < passengerNames.Count; i++) //int i = 0 → loop counter starts at 0.i < passengerNames.Count → keep looping until i reaches the number of passengers.i++ → increase i by 1 each time.
             {
-                string name = passengerNames[i];
+                string name = passengerNames[i];//Gets the passenger’s name at position i.
                 string ticket = ticketNumbers[i];
                 string status;
 
-                if (cancelledTickets.Contains(ticket))
+                if (cancelledTickets.Contains(ticket)) // chek if it cancelled 
                 {
                     status = "CANCELLED";
                 }
@@ -90,10 +132,15 @@ namespace FlightManagementSystem
                     status = "Active";
                 }
 
-                Console.WriteLine((i + 1)  +  "    |      " +(name.Trim())+    "   |   "  +(ticket.Trim())+"   |  "+( status) );
+                Console.WriteLine((i + 1)  +  "    |      " +(name.PadRight(22)+    "   |   "  +(ticket.PadRight(22))+"   |  "+( status.PadRight(22))) );
+                // Print row:
+                // (i+1) → passenger number (starts at 1).
+                // name.Trim() → clean spaces.
+                // ticket.Trim() → clean spaces.
+                // status → Active or Cancelled.
             }
 
-            Console.WriteLine("------------------------------------------");
+            Console.WriteLine("-------------------------------------------------------------------------------------");
             Console.WriteLine("Total passengers: " +passengerNames.Count);
         }
 
