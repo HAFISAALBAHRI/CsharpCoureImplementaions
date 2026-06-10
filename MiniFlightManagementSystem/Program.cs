@@ -385,6 +385,7 @@ namespace FlightManagementSystem
 
         static void UpdateBooking()
         {
+            LoadBookingsFromFile(); // refresh from file
             Console.Write("Enter Ticket ID to update: ");
             string ticketId = Console.ReadLine().Trim();
             if (!ticketNumbers.Contains(ticketId))
@@ -430,6 +431,8 @@ namespace FlightManagementSystem
             }
             string newDate = availableDates[dateChoice - 1];
             bookingRecord[ticketId] = $"{newFlight}|{newDate}";
+
+            SaveBookingsToFile();
             int passengerIndex = ticketNumbers.IndexOf(ticketId);
             string passengerName = passengerNames[passengerIndex];
             Console.WriteLine("*************************************");
