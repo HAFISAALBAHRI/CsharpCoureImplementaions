@@ -469,6 +469,7 @@ namespace FlightManagementSystem
 
             cancelledTickets.Add(ticketId);// add to cancelled tickt 
             bookingRecord.Remove(ticketId); // delet from Dictionary
+            SavePassengersToFile();
             int passengerIndex = ticketNumbers.IndexOf(ticketId);// name of passenger 
             string passengerName = passengerNames[passengerIndex];
             Console.WriteLine("*************************************");
