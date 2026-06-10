@@ -481,6 +481,9 @@ namespace FlightManagementSystem
 
         static void PassengerCheckIn()
         {
+            LoadBookingsFromFile(); // refresh bookings
+            LoadPassengersFromFile(); // refresh passengers
+
             Console.Write("Enter Ticket ID for check-in: ");
             string ticketId = Console.ReadLine().Trim();
             if (!ticketNumbers.Contains(ticketId))
@@ -517,12 +520,35 @@ namespace FlightManagementSystem
             Console.WriteLine($"Passenger: {passengerName}");
             Console.WriteLine($"Ticket ID: {ticketId}");
             Console.WriteLine("*************************************");
-            Console.WriteLine("\nCurrent Check-In Queue:");// IN LINE 
-            foreach (string id in checkedInQueue)
+
+            //  Display queue using LINQ (without dequeueing)
+            Console.WriteLine("\nCurrent Check-In Queue:");
+            var queueList = checkedInQueue
+                .Select((tkt, i) => new {
+                    No = i + 1,
+                    Passenger = passengerNames[ticketNumbers.IndexOf(tkt)],
+                    Ticket = tkt
+                });
+
+            foreach (var q in queueList)
             {
-                int index = ticketNumbers.IndexOf(id);
-                Console.WriteLine($"- {passengerNames[index]} (Ticket: {id})");
+                Console.WriteLine($"{q.No}. {q.Passenger} ({q.Ticket})");
             }
+
+            //  Auto-move from waitlist if space frees
+            if (waitlistQueue.Count > 0 && checkedInQueue.Count < 10)
+            {
+                string movedTicket = waitlistQueue.Dequeue();
+                checkedInQueue.Enqueue(movedTicket);
+                string movedPassenger = passengerNames[ticketNumbers.IndexOf(movedTicket)];
+                Console.WriteLine($"\nPassenger {movedPassenger} ({movedTicket}) moved from waitlist to check-in queue.");
+            }
+            //Console.WriteLine("\nCurrent Check-In Queue:");// IN LINE 
+            //foreach (string id in checkedInQueue)
+            //{
+            //    int index = ticketNumbers.IndexOf(id);
+            //    Console.WriteLine($"- {passengerNames[index]} (Ticket: {id})");
+            //}
         }
 
         static void BoardPassengers()
