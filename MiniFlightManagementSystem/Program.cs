@@ -192,7 +192,7 @@ namespace FlightManagementSystem
 
             foreach (var p in passengerList)
             {
-                Console.WriteLine($"{p.No} | {p.Name} | {p.Ticket} | {p.Status}");
+                Console.WriteLine($"{p.No} | {p.Name.PadRight(22)} | {p.Ticket.PadRight(22)} | {p.Status.PadRight(22)}");
             }
 
             //for (int i = 0; i < passengerNames.Count; i++) //int i = 0 → loop counter starts at 0.i < passengerNames.Count → keep looping until i reaches the number of passengers.i++ → increase i by 1 each time.
