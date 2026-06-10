@@ -21,7 +21,7 @@ namespace FlightManagementSystem
 
         
         static string passengerFile = "passengers.txt"; // File Path for Persistence
-        static string bookingFile = "bookings.txt";
+    
         static void ShowMenu()
         {
             Console.WriteLine("*******************************************");
@@ -222,6 +222,33 @@ namespace FlightManagementSystem
             Console.WriteLine("Total passengers: " +passengerNames.Count);
         }
 
+        static string bookingFile = "bookings.txt";
+        static void LoadBookingsFromFile()
+        {
+            bookingRecord.Clear();
+
+            if (File.Exists(bookingFile))
+            {
+                var lines = File.ReadAllLines(bookingFile);
+                foreach (var line in lines)
+                {
+                    var parts = line.Split('|');
+                    if (parts.Length == 3)
+                    {
+                        bookingRecord[parts[0]] = $"{parts[1]}|{parts[2]}"; // TicketID|Flight|Date
+                    }
+                }
+            }
+        }
+
+        static void SaveBookingsToFile()
+        {
+            var lines = bookingRecord
+                .Select(b => $"{b.Key}|{b.Value.Split('|')[0]}|{b.Value.Split('|')[1]}")
+                .ToList();
+
+            File.WriteAllLines(bookingFile, lines);
+        }
 
         static void BookFlightTicket()
         {
@@ -243,14 +270,21 @@ namespace FlightManagementSystem
                 Console.WriteLine("Error: This ticket already has a booking. Use Update Booking instead.");
                 return;
             }
-
+            // === Show available flights ===
             Console.WriteLine("Available Flights:");
-            int counter = 1;
-            foreach (string flight in flightNumbers)
+            for (int i = 0; i < flightNumbers.Length; i++)
             {
-                Console.WriteLine($"{counter} . {flight}");
-                counter++;
+                Console.WriteLine($"{i + 1}. {flightNumbers[i]}");
             }
+
+
+            //Console.WriteLine("Available Flights:");
+            //int counter = 1;
+            //foreach (string flight in flightNumbers)
+            //{
+            //    Console.WriteLine($"{counter} . {flight}");
+            //    counter++;
+            //}
             //for (int i = 0; i < flightNumbers.Length; i++)  
             //{
             //    Console.WriteLine($"{i + 1} . {flightNumbers[i]}"); //i + 1 → لأن الفهرس يبدأ من 0، نضيف 1 حتى يظهر للمستخدم رقم تسلسلي يبدأ من
@@ -280,7 +314,7 @@ namespace FlightManagementSystem
 
             // تخزين الحجز في Dictionary
             bookingRecord[ticketId] = $"{selectedFlight}|{selectedDate}";
-
+            SaveBookingsToFile();
             // جلب اسم الراكب من نفس الفهرس
             int passengerIndex = ticketNumbers.IndexOf(ticketId);
             string passengerName = passengerNames[passengerIndex];
