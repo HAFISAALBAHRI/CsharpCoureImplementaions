@@ -551,6 +551,20 @@ namespace FlightManagementSystem
             //}
         }
 
+        static string boardingFile = "boarding.txt";
+        static void SaveBoardingLogToFile()
+        {
+            var lines = passengerSeatMap
+                .Select(entry =>
+                {
+                    int passengerIndex = ticketNumbers.IndexOf(entry.Key);
+                    string passengerName = passengerNames[passengerIndex];
+                    return $"{passengerName}|{entry.Key}|{entry.Value}";
+                })
+                .ToList();
+
+            File.WriteAllLines(boardingFile, lines);
+        }
         static void BoardPassengers()
         {
             bool exit = false;
@@ -619,7 +633,10 @@ namespace FlightManagementSystem
                             }
 
                             Console.WriteLine($"Boarded: {passengerName} (Ticket: {ticketId}) → Seat {seat}");
+                            //  save boarding log to file
+                            SaveBoardingLogToFile();
                         }
+
                         break;
 
                     case "3": // View boarding stack
@@ -630,13 +647,25 @@ namespace FlightManagementSystem
                         else
                         {
                             Console.WriteLine("Current Boarding Stack (Top → Bottom):");
-                            int pos = 1;
-                            foreach (string ticketId in boardingStack)
+                            var stackList = boardingStack
+                                .Select((ticketId, pos) =>
+                                {
+                                    int passengerIndex = ticketNumbers.IndexOf(ticketId);
+                                    return new { Pos = pos + 1, Name = passengerNames[passengerIndex], Ticket = ticketId };
+                                });
+
+                            foreach (var s in stackList)
                             {
-                                int passengerIndex = ticketNumbers.IndexOf(ticketId);
-                                Console.WriteLine($"{pos}. {passengerNames[passengerIndex]} (Ticket: {ticketId})");
-                                pos++;
+                                Console.WriteLine($"{s.Pos}. {s.Name} (Ticket: {s.Ticket})");
                             }
+
+                            //int pos = 1;
+                            //foreach (string ticketId in boardingStack)
+                            //{
+                            //    int passengerIndex = ticketNumbers.IndexOf(ticketId);
+                            //    Console.WriteLine($"{pos}. {passengerNames[passengerIndex]} (Ticket: {ticketId})");
+                            //    pos++;
+                            //}
                         }
                         break;
 
@@ -648,11 +677,24 @@ namespace FlightManagementSystem
                         else
                         {
                             Console.WriteLine("Boarding Log:");
-                            foreach (var entry in passengerSeatMap)
+                            var logList = passengerSeatMap
+                                .Select(entry =>
+                                {
+                                    int passengerIndex = ticketNumbers.IndexOf(entry.Key);
+                                    return new { Name = passengerNames[passengerIndex], Seat = entry.Value };
+                                });
+
+                            foreach (var l in logList)
                             {
-                                int passengerIndex = ticketNumbers.IndexOf(entry.Key);
-                                Console.WriteLine($"{passengerNames[passengerIndex]} → Seat {entry.Value}");
+                                Console.WriteLine($"{l.Name} → Seat {l.Seat}");
                             }
+
+
+                            //foreach (var entry in passengerSeatMap)
+                            //{
+                            //    int passengerIndex = ticketNumbers.IndexOf(entry.Key);
+                            //    Console.WriteLine($"{passengerNames[passengerIndex]} → Seat {entry.Value}");
+                            //}
                         }
                         break;
 
