@@ -331,6 +331,7 @@ namespace FlightManagementSystem
 
         static void ViewBookingDetails()
         {
+            LoadBookingsFromFile(); // refresh from file
             Console.Write("Enter Ticket ID: ");
             string ticketId = Console.ReadLine().Trim();
 
@@ -349,23 +350,35 @@ namespace FlightManagementSystem
             }
             else
             {
-                // جلب بيانات الحجز من الـ Dictionary
-                string bookingInfo = bookingRecord[ticketId];
-                string[] parts = bookingInfo.Split('|');
-                string flight = parts[0];
-                string date = parts[1];
 
-                // جلب اسم الراكب من نفس الفهرس
+                //  LINQ query to extract booking info
+                var booking = bookingRecord
+                    .Where(b => b.Key == ticketId)
+                    .Select(b => new
+                    {
+                        Ticket = b.Key,
+                        Flight = b.Value.Split('|')[0],
+                        Date = b.Value.Split('|')[1],
+                        Passenger = passengerNames[ticketNumbers.IndexOf(b.Key)]
+                    })
+                    .FirstOrDefault();
+                //// جلب بيانات الحجز من الـ Dictionary
+                //string bookingInfo = bookingRecord[ticketId];
+                //string[] parts = bookingInfo.Split('|');
+                //string flight = parts[0];
+                //string date = parts[1];
+
+                //// جلب اسم الراكب من نفس الفهرس
                 int passengerIndex = ticketNumbers.IndexOf(ticketId);
                 string passengerName = passengerNames[passengerIndex];
 
                 // عرض التفاصيل
                 Console.WriteLine("*************************************");
                 Console.WriteLine("Booking Details:");
-                Console.WriteLine($"Passenger: {passengerName}");
-                Console.WriteLine($"Ticket ID: {ticketId}");
-                Console.WriteLine($"Flight: {flight}");
-                Console.WriteLine($"Date: {date}");
+                Console.WriteLine($"Passenger: {booking.Passenger}");
+                Console.WriteLine($"Ticket ID: {booking.Ticket}");
+                Console.WriteLine($"Flight: {booking.Flight}");
+                Console.WriteLine($"Date: {booking.Date}");
                 Console.WriteLine("*************************************");
             }
         }
